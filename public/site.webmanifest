@@ -1,0 +1,13 @@
+{
+  "name": "南方澳觀景台",
+  "short_name": "南方澳觀景台",
+  "description": "南方澳觀景台交通、停車、日出夜景與順遊行程指南。",
+  "lang": "zh-Hant-TW",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7faf9",
+  "theme_color": "#10272c",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

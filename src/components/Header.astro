@@ -1,0 +1,60 @@
+---
+import Icon from './Icon.astro';
+const links = [
+  ['#highlights', '景觀亮點'],
+  ['#best-time', '最佳時間'],
+  ['#transport', '交通停車'],
+  ['#itinerary', '順遊行程'],
+  ['#faq', '常見問題'],
+];
+---
+<header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ocean-950/88 text-white backdrop-blur-xl">
+  <div class="container-site flex h-[var(--header-height)] items-center justify-between gap-4">
+    <a href="#top" class="group flex items-center gap-3" aria-label="回到頁首">
+      <span class="grid size-10 place-items-center rounded-full border border-white/20 bg-white/10 transition group-hover:bg-white/15">
+        <Icon name="waves" class="size-5" />
+      </span>
+      <span>
+        <span class="block text-sm font-semibold tracking-[0.15em]">南方澳觀景台</span>
+        <span class="block text-[0.68rem] tracking-[0.18em] text-white/58">NANFANGAO LOOKOUT</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-7 text-sm text-white/76 lg:flex" aria-label="主要導覽">
+      {links.map(([href, label]) => (
+        <a href={href} class="transition hover:text-white">{label}</a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href="https://www.google.com/maps/dir/?api=1&destination=24.5765079%2C121.8667597&destination_place_id=ChIJMYba8knOZzQRGUjgaehywyq"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden items-center gap-2 rounded-full bg-dawn-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-dawn-600 sm:inline-flex"
+      >
+        <Icon name="map" class="size-4" />
+        開啟導航
+      </a>
+      <details class="relative lg:hidden">
+        <summary class="grid size-11 cursor-pointer list-none place-items-center rounded-full border border-white/20 bg-white/10 [&::-webkit-details-marker]:hidden" aria-label="開啟選單">
+          <Icon name="menu" class="size-5" />
+        </summary>
+        <nav class="absolute right-0 top-14 w-56 overflow-hidden rounded-2xl border border-ocean-100 bg-white p-2 text-ocean-950 shadow-2xl" aria-label="行動版導覽">
+          {links.map(([href, label]) => (
+            <a href={href} class="block rounded-xl px-4 py-3 text-sm font-medium hover:bg-ocean-50">{label}</a>
+          ))}
+          <a
+            href="https://www.google.com/maps/dir/?api=1&destination=24.5765079%2C121.8667597&destination_place_id=ChIJMYba8knOZzQRGUjgaehywyq"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-1 flex items-center gap-2 rounded-xl bg-dawn-500 px-4 py-3 text-sm font-semibold text-white"
+          >
+            <Icon name="map" class="size-4" />
+            開啟導航
+          </a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

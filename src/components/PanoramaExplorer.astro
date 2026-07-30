@@ -1,0 +1,69 @@
+---
+import Icon from './Icon.astro';
+const points = [
+  { id: 'harbor', label: '內埤漁港', pos: 'left-[50%] top-[70%]', title: '內埤漁港', text: '狹長港池兩側停滿漁船，是南方澳最具辨識度的俯瞰畫面。' },
+  { id: 'bay', label: '內埤海灣', pos: 'left-[83%] top-[59%]', title: '內埤海灣', text: '又稱情人灣，弧形海岸與山岬在高處視角下格外清楚。' },
+  { id: 'bijia', label: '筆架山', pos: 'left-[73%] top-[31%]', title: '筆架山', text: '連綿山岬形成如筆架般的輪廓，是海灣外側的重要地景。' },
+  { id: 'tofu', label: '豆腐岬方向', pos: 'left-[29%] top-[31%]', title: '豆腐岬方向', text: '位於港灣外側的海岸遊憩區，可與觀景台安排在同一條順遊路線。' },
+  { id: 'pacific', label: '太平洋', pos: 'left-[61%] top-[12%]', title: '太平洋', text: '晴朗通透時海天線遼闊，清晨可等待曙光由東方海面展開。' },
+  { id: 'suao', label: '蘇澳港', pos: 'left-[12%] top-[20%]', title: '蘇澳港', text: '遠方港區與山勢共同構成雙澳港灣景觀；能見度佳時層次更明顯。' },
+];
+---
+<section id="highlights" class="py-20 sm:py-28">
+  <div class="container-site">
+    <div class="reveal grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+      <div>
+        <p class="section-kicker text-xs font-semibold text-dawn-600">從高處認識南方澳</p>
+        <h2 class="mt-4 text-balance text-4xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-5xl">一個視角，讀懂南方澳的山海地形。</h2>
+      </div>
+      <p class="max-w-2xl text-base leading-8 text-ocean-800/72 lg:justify-self-end">
+        觀景台最迷人的地方，不只是一片海景，而是漁港、聚落、海灣與山岬同時出現在眼前。點選照片上的標記，快速認識各個方向。
+      </p>
+    </div>
+
+    <div class="reveal mt-12 overflow-hidden rounded-[2rem] border border-ocean-100 bg-ocean-950 shadow-[0_24px_70px_rgba(16,39,44,0.14)]">
+      <div class="relative aspect-[4/3] min-h-[430px] md:aspect-[16/9] md:min-h-0">
+        <picture class="absolute inset-0">
+          <source srcset="/images/neipi-1440.avif" type="image/avif" />
+          <img src="/images/neipi-1920.webp" alt="南方澳觀景台俯瞰實景，可見內埤漁港、內埤海灣、筆架山與太平洋" class="h-full w-full object-cover object-center" width="1920" height="1280" loading="lazy" />
+        </picture>
+        <div class="absolute inset-0 bg-gradient-to-t from-ocean-950/70 via-transparent to-ocean-950/20"></div>
+
+        {points.map((point, index) => (
+          <button
+            type="button"
+            class:list={['panorama-pin group absolute -translate-x-1/2 -translate-y-1/2', point.pos]}
+            data-point={point.id}
+            aria-label={`查看${point.label}說明`}
+            aria-pressed={index === 0 ? 'true' : 'false'}
+          >
+            <span class="pin-pulse relative block size-4 rounded-full border-2 border-white bg-dawn-500 shadow-lg transition group-hover:scale-110"></span>
+            <span class="absolute left-1/2 top-6 hidden -translate-x-1/2 whitespace-nowrap rounded-full border border-white/25 bg-ocean-950/78 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md sm:block">{point.label}</span>
+          </button>
+        ))}
+
+        <div class="absolute inset-x-4 bottom-4 rounded-2xl border border-white/15 bg-ocean-950/80 p-5 text-white backdrop-blur-xl sm:inset-x-auto sm:bottom-6 sm:left-6 sm:max-w-md sm:p-6">
+          <p class="text-xs font-semibold tracking-[0.14em] text-dawn-300">目前位置</p>
+          <h3 id="panorama-title" class="mt-2 text-xl font-semibold">{points[0].title}</h3>
+          <p id="panorama-text" class="mt-2 text-sm leading-6 text-white/68">{points[0].text}</p>
+        </div>
+        <p class="absolute right-5 top-5 rounded-full bg-ocean-950/65 px-3 py-2 text-xs text-white/65 backdrop-blur">標示位置依照片視角示意</p>
+      </div>
+    </div>
+  </div>
+  <script define:vars={{ points }}>
+    const panoramaPoints = points;
+    const pinButtons = document.querySelectorAll('.panorama-pin');
+    const title = document.getElementById('panorama-title');
+    const text = document.getElementById('panorama-text');
+    pinButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const data = panoramaPoints.find((item) => item.id === button.dataset.point);
+        if (!data || !title || !text) return;
+        title.textContent = data.title;
+        text.textContent = data.text;
+        pinButtons.forEach((pin) => pin.setAttribute('aria-pressed', String(pin === button)));
+      });
+    });
+  </script>
+</section>

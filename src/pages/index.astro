@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import QuickFacts from '../components/QuickFacts.astro';
+import PanoramaExplorer from '../components/PanoramaExplorer.astro';
+import BestTime from '../components/BestTime.astro';
+import Transport from '../components/Transport.astro';
+import ItineraryPlanner from '../components/ItineraryPlanner.astro';
+import Gallery from '../components/Gallery.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
+import MobileActions from '../components/MobileActions.astro';
+import { faqs } from '../data/faqs';
+
+const title = '南方澳觀景台｜停車、交通、日出夜景與最佳拍照時間';
+const description = '南方澳觀景台完整攻略：免費停車、台9丁線交通、安全迴轉、今日曙光與日出時間、實景照片、現場設施及南方澳半日遊行程。';
+const siteUrl = 'https://nanfangaolookout.com/';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'TouristAttraction',
+    '@id': `${siteUrl}#attraction`,
+    name: '南方澳觀景台',
+    alternateName: ['南方澳觀景臺', 'Nanfangao Lookout', 'Nanfang’ao Observation Deck'],
+    description: '位於宜蘭縣蘇澳鎮台9丁線舊蘇花公路的免費觀景平台，可俯瞰南方澳漁港、內埤海灣、筆架山與太平洋。',
+    url: siteUrl,
+    image: [
+      `${siteUrl}images/og-nanfangao-lookout.jpg`,
+      `${siteUrl}images/neipi-1920.webp`,
+      `${siteUrl}images/dusk-1920.webp`,
+    ],
+    isAccessibleForFree: true,
+    touristType: ['攝影旅客', '自駕旅客', '海岸風景旅客'],
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 24.5765079,
+      longitude: 121.8667597,
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: '蘇澳鎮',
+      addressRegion: '宜蘭縣',
+      addressCountry: 'TW',
+      streetAddress: '台9丁線約5.5公里處',
+    },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '00:00',
+      closes: '23:59',
+    },
+    publicAccess: true,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}#website`,
+    name: '南方澳觀景台',
+    url: siteUrl,
+    inLanguage: 'zh-Hant-TW',
+  },
+];
+---
+<BaseLayout title={title} description={description} structuredData={structuredData}>
+  <Header />
+  <main>
+    <Hero />
+    <QuickFacts />
+    <PanoramaExplorer />
+    <BestTime />
+    <Transport />
+    <ItineraryPlanner />
+    <Gallery />
+    <FAQ />
+  </main>
+  <Footer />
+  <MobileActions />
+</BaseLayout>

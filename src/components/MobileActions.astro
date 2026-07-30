@@ -1,0 +1,9 @@
+---
+import Icon from './Icon.astro';
+const navigationUrl = 'https://www.google.com/maps/dir/?api=1&destination=24.5765079%2C121.8667597&destination_place_id=ChIJMYba8knOZzQRGUjgaehywyq';
+---
+<nav class="fixed inset-x-3 bottom-3 z-40 grid grid-cols-3 gap-1 rounded-2xl border border-white/15 bg-ocean-950/92 p-2 text-white shadow-2xl backdrop-blur-xl sm:hidden" aria-label="快速操作">
+  <a href="#best-time" class="flex flex-col items-center gap-1 rounded-xl px-2 py-2 text-[0.7rem] text-white/76"><Icon name="sun" class="size-5 text-dawn-300" />今日時間</a>
+  <a href="#transport" class="flex flex-col items-center gap-1 rounded-xl px-2 py-2 text-[0.7rem] text-white/76"><Icon name="parking" class="size-5 text-dawn-300" />停車方式</a>
+  <a href={navigationUrl} target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-1 rounded-xl bg-dawn-500 px-2 py-2 text-[0.7rem] font-semibold text-white"><Icon name="map" class="size-5" />開啟導航</a>
+</nav>

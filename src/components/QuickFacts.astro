@@ -1,0 +1,24 @@
+---
+import Icon from './Icon.astro';
+const facts = [
+  { icon: 'parking', title: '免費停車', text: '路旁停車位有限，日出與假日建議提早抵達。' },
+  { icon: 'walk', title: '步行很短', text: '從停車區至觀景平台約 1 分鐘，無須長距離健行。' },
+  { icon: 'shade', title: '露天平台', text: '遮蔭與避雨空間有限，晴天注意防曬與補水。' },
+  { icon: 'toilet', title: '先找洗手間', text: '不要完全依賴現場設施，可先在山下或遊客中心停留。' },
+] as const;
+---
+<section class="border-b border-ocean-100 bg-white py-8">
+  <div class="container-site grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    {facts.map((fact) => (
+      <article class="flex gap-4 rounded-2xl border border-ocean-100 bg-ocean-50/55 p-5">
+        <span class="grid size-11 shrink-0 place-items-center rounded-full bg-white text-ocean-700 shadow-sm">
+          <Icon name={fact.icon} class="size-5" />
+        </span>
+        <div>
+          <h2 class="font-semibold text-ocean-950">{fact.title}</h2>
+          <p class="mt-1 text-sm leading-6 text-ocean-800/70">{fact.text}</p>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

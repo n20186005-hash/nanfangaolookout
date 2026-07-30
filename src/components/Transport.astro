@@ -1,0 +1,131 @@
+---
+import Icon from './Icon.astro';
+
+const navigationUrl = 'https://www.google.com/maps/dir/?api=1&destination=24.5765079%2C121.8667597&destination_place_id=ChIJMYba8knOZzQRGUjgaehywyq';
+---
+<section id="transport" class="py-20 sm:py-28">
+  <div class="container-site">
+    <div class="reveal grid gap-10 lg:grid-cols-[0.76fr_1.24fr] lg:items-end">
+      <div>
+        <p class="section-kicker text-xs font-semibold text-dawn-600">安全抵達觀景台</p>
+        <h2 class="mt-4 text-balance text-4xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-5xl">導航不難，真正要注意的是彎道入口。</h2>
+      </div>
+      <p class="max-w-2xl leading-8 text-ocean-800/70 lg:justify-self-end">
+        自駕由蘇澳市區進入台9丁線舊蘇花公路最方便。停車區距平台很近，但入口位於山路彎道附近，請把安全迴轉放在搶進車位之前。
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
+      <div class="reveal overflow-hidden rounded-[2rem] border border-ocean-100 bg-white">
+        <div class="border-b border-ocean-100 p-7 sm:p-9">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-sm font-semibold text-dawn-700">自駕簡易路線</p>
+              <h3 class="mt-2 text-2xl font-semibold text-ocean-950">蘇澳市區 → 台9丁線 → 觀景台</h3>
+            </div>
+            <span class="grid size-12 shrink-0 place-items-center rounded-full bg-ocean-50 text-ocean-700">
+              <Icon name="route" class="size-6" />
+            </span>
+          </div>
+
+          <div class="soft-grid mt-8 rounded-[1.6rem] border border-ocean-100 p-5 sm:p-7">
+            <div class="grid gap-3 sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:items-center">
+              <div class="rounded-2xl border border-ocean-100 bg-white p-4 text-center">
+                <span class="mx-auto grid size-10 place-items-center rounded-full bg-ocean-950 text-white"><Icon name="car" class="size-5" /></span>
+                <p class="mt-3 font-semibold text-ocean-950">蘇澳市區</p>
+                <p class="mt-1 text-xs text-ocean-700/60">由市區往舊蘇花公路</p>
+              </div>
+              <Icon name="arrow" class="mx-auto hidden size-5 text-ocean-500 sm:block" />
+              <div class="rounded-2xl border border-ocean-100 bg-white p-4 text-center">
+                <span class="mx-auto grid size-10 place-items-center rounded-full bg-ocean-100 text-ocean-800"><Icon name="mountain" class="size-5" /></span>
+                <p class="mt-3 font-semibold text-ocean-950">台9丁線</p>
+                <p class="mt-1 text-xs text-ocean-700/60">約 5.5 公里處</p>
+              </div>
+              <Icon name="arrow" class="mx-auto hidden size-5 text-ocean-500 sm:block" />
+              <div class="rounded-2xl border border-dawn-200 bg-dawn-50 p-4 text-center">
+                <span class="mx-auto grid size-10 place-items-center rounded-full bg-dawn-500 text-white"><Icon name="parking" class="size-5" /></span>
+                <p class="mt-3 font-semibold text-ocean-950">路旁停車區</p>
+                <p class="mt-1 text-xs text-ocean-700/60">步行約 1 分鐘</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid gap-px bg-ocean-100 sm:grid-cols-3">
+          <div class="bg-white p-6">
+            <Icon name="parking" class="size-5 text-ocean-700" />
+            <p class="mt-4 font-semibold text-ocean-950">免費但有限</p>
+            <p class="mt-2 text-sm leading-6 text-ocean-800/65">日出、週末與傍晚時段可能很快停滿。</p>
+          </div>
+          <div class="bg-white p-6">
+            <Icon name="walk" class="size-5 text-ocean-700" />
+            <p class="mt-4 font-semibold text-ocean-950">不用長途健行</p>
+            <p class="mt-2 text-sm leading-6 text-ocean-800/65">停妥車後即可短距離走到主要觀景平台。</p>
+          </div>
+          <div class="bg-white p-6">
+            <Icon name="map" class="size-5 text-ocean-700" />
+            <p class="mt-4 font-semibold text-ocean-950">先確認台9丁線</p>
+            <p class="mt-2 text-sm leading-6 text-ocean-800/65">避免導航誤帶至不必要的遠距繞行路線。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <aside class="reveal rounded-[2rem] bg-dawn-500 p-7 text-white sm:p-9">
+          <div class="flex items-start gap-4">
+            <span class="grid size-12 shrink-0 place-items-center rounded-full bg-white/15"><Icon name="info" class="size-6" /></span>
+            <div>
+              <p class="text-sm font-semibold text-white/72">最重要的行車提醒</p>
+              <h3 class="mt-2 text-2xl font-semibold">不要跨越雙黃線搶轉。</h3>
+            </div>
+          </div>
+          <p class="mt-6 leading-8 text-white/82">
+            入口鄰近彎道。若停車區位於對向，請繼續往前，在視線良好、合法且安全的位置完成迴轉，再回到入口；也不要在彎道突然減速或臨停。
+          </p>
+        </aside>
+
+        <div class="reveal rounded-[2rem] border border-ocean-100 bg-ocean-50 p-7 sm:p-9">
+          <h3 class="text-xl font-semibold text-ocean-950">出發前快速確認</h3>
+          <ul class="mt-5 space-y-4 text-sm leading-6 text-ocean-800/72">
+            <li class="flex gap-3"><span class="mt-2 size-1.5 shrink-0 rounded-full bg-dawn-500"></span><span>強風、豪雨或低雲時，觀景品質與行車安全都會下降。</span></li>
+            <li class="flex gap-3"><span class="mt-2 size-1.5 shrink-0 rounded-full bg-dawn-500"></span><span>夜間山路照明有限，停車後先確認來車再開門下車。</span></li>
+            <li class="flex gap-3"><span class="mt-2 size-1.5 shrink-0 rounded-full bg-dawn-500"></span><span>現場補給有限，可先在蘇澳或南方澳市區補水與使用洗手間。</span></li>
+          </ul>
+          <a href={navigationUrl} target="_blank" rel="noopener noreferrer" class="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ocean-950 px-5 py-3.5 font-semibold text-white transition hover:bg-ocean-800">
+            <Icon name="map" class="size-5" />
+            導航至南方澳觀景台
+            <Icon name="external" class="size-4 opacity-60" />
+          </a>
+          <p class="mt-3 text-center text-xs text-ocean-700/55">座標：24.5765079, 121.8667597</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal mt-6 overflow-hidden rounded-[2rem] border border-ocean-100 bg-white">
+      <div class="flex flex-col gap-3 border-b border-ocean-100 p-7 sm:flex-row sm:items-end sm:justify-between sm:p-9">
+        <div>
+          <p class="text-sm font-semibold text-dawn-700">地圖位置</p>
+          <h3 class="mt-2 text-2xl font-semibold text-ocean-950">南方澳觀景台</h3>
+          <p class="mt-2 text-sm leading-6 text-ocean-800/65">宜蘭縣蘇澳鎮台9丁線舊蘇花公路，約 5.5 公里處。</p>
+        </div>
+        <a href={navigationUrl} target="_blank" rel="noopener noreferrer" class="inline-flex shrink-0 items-center gap-2 font-semibold text-ocean-800 transition hover:text-dawn-700">
+          使用目前位置導航
+          <Icon name="external" class="size-4" />
+        </a>
+      </div>
+      <div class="aspect-[4/3] w-full sm:aspect-[16/9]">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3628.367567257208!2d121.8667597!3d24.576507900000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3467e849f2da8631%3A0x2ac372e869e04819!2z5Y2X5pa55r6z6KeA5pmv6Ie6!5e0!3m2!1szh-TW!2stw!4v1785384409720!5m2!1szh-TW!2stw"
+          title="南方澳觀景台 Google 地圖"
+          width="600"
+          height="450"
+          class="size-full"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>

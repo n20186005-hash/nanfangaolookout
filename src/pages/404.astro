@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+---
+<BaseLayout title="找不到頁面｜南方澳觀景台" description="找不到你要瀏覽的頁面。" noindex={true}>
+  <main class="grid min-h-screen place-items-center bg-ocean-950 px-6 text-center text-white">
+    <div class="max-w-xl">
+      <span class="mx-auto grid size-16 place-items-center rounded-full border border-white/15 bg-white/10 text-dawn-300"><Icon name="waves" class="size-8" /></span>
+      <p class="mt-8 text-sm font-semibold tracking-[0.16em] text-dawn-300">404・航線偏離</p>
+      <h1 class="mt-4 text-4xl font-semibold sm:text-5xl">這個頁面已經看不見港口。</h1>
+      <p class="mt-5 leading-8 text-white/60">回到南方澳觀景台首頁，重新查看景觀、日出時間與停車方式。</p>
+      <a href="/" class="mt-8 inline-flex items-center gap-2 rounded-full bg-dawn-500 px-6 py-3.5 font-semibold text-white"><Icon name="arrow" class="size-5 rotate-180" />返回首頁</a>
+    </div>
+  </main>
+</BaseLayout>

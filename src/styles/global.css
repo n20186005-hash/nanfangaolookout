@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --color-ocean-50: #eff8f8;
+  --color-ocean-100: #d8eeed;
+  --color-ocean-200: #b5dddc;
+  --color-ocean-300: #84c4c4;
+  --color-ocean-400: #51a4a7;
+  --color-ocean-500: #37898e;
+  --color-ocean-600: #2e6e75;
+  --color-ocean-700: #295a61;
+  --color-ocean-800: #264b51;
+  --color-ocean-900: #223f45;
+  --color-ocean-950: #10272c;
+  --color-dawn-50: #fff8ed;
+  --color-dawn-100: #ffefd4;
+  --color-dawn-200: #ffdaa8;
+  --color-dawn-300: #ffbf70;
+  --color-dawn-400: #f99c3d;
+  --color-dawn-500: #f47f1c;
+  --color-dawn-600: #e45f11;
+  --color-dawn-700: #bd4510;
+  --color-dawn-800: #973716;
+  --color-dawn-900: #7a2f16;
+}
+
+:root {
+  color-scheme: light;
+  --header-height: 4.5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+  background: #f7faf9;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  color: #173239;
+  background:
+    radial-gradient(circle at 12% 0%, rgb(216 238 237 / 0.6), transparent 26rem),
+    #f7faf9;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  color: white;
+  background: #2e6e75;
+}
+
+:focus-visible {
+  outline: 3px solid #f47f1c;
+  outline-offset: 3px;
+}
+
+.container-site {
+  width: min(100% - 2rem, 76rem);
+  margin-inline: auto;
+}
+
+.section-kicker {
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.glass-panel {
+  background: rgb(16 39 44 / 0.76);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  backdrop-filter: blur(14px);
+}
+
+.hero-shade {
+  background:
+    linear-gradient(90deg, rgb(9 30 36 / 0.88) 0%, rgb(9 30 36 / 0.68) 42%, rgb(9 30 36 / 0.08) 76%),
+    linear-gradient(0deg, rgb(9 30 36 / 0.64) 0%, transparent 40%);
+}
+
+.soft-grid {
+  background-image:
+    linear-gradient(rgb(46 110 117 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(46 110 117 / 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.pin-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border: 1px solid rgb(255 255 255 / 0.85);
+  border-radius: 9999px;
+  animation: pin-pulse 2.2s ease-out infinite;
+}
+
+@keyframes pin-pulse {
+  0% { transform: scale(0.7); opacity: 0.9; }
+  70%, 100% { transform: scale(1.55); opacity: 0; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .pin-pulse::after { animation: none; }
+}

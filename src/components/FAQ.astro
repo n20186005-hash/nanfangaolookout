@@ -1,0 +1,28 @@
+---
+import Icon from './Icon.astro';
+import { faqs } from '../data/faqs';
+---
+<section id="faq" class="bg-white py-20 sm:py-28">
+  <div class="container-site grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
+    <div class="reveal lg:sticky lg:top-28 lg:self-start">
+      <p class="section-kicker text-xs font-semibold text-dawn-600">出發前先知道</p>
+      <h2 class="mt-4 text-balance text-4xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-5xl">出發前，最常被問的八件事。</h2>
+      <p class="mt-5 max-w-md leading-8 text-ocean-800/68">景點小、視野大。先把停車、日出、設施與天候想清楚，到現場就能把時間留給風景。</p>
+      <a href="#transport" class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-ocean-800 hover:text-dawn-700">先看交通停車 <Icon name="arrow" class="size-4" /></a>
+    </div>
+
+    <div class="reveal divide-y divide-ocean-100 border-y border-ocean-100">
+      {faqs.map((faq, index) => (
+        <details class="group py-2" open={index === 0}>
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-left [&::-webkit-details-marker]:hidden">
+            <span class="text-lg font-semibold text-ocean-950">{faq.question}</span>
+            <span class="grid size-9 shrink-0 place-items-center rounded-full bg-ocean-50 text-ocean-700 transition group-open:rotate-180 group-open:bg-ocean-950 group-open:text-white">
+              <Icon name="chevron" class="size-4" />
+            </span>
+          </summary>
+          <p class="max-w-3xl pb-6 pr-12 text-sm leading-7 text-ocean-800/68">{faq.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

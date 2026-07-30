@@ -1,0 +1,170 @@
+---
+import Icon from './Icon.astro';
+
+const plans = [
+  {
+    id: 'quick',
+    label: '只有 1 小時',
+    title: '山海快速停留',
+    summary: '把時間留給高處全景，再到內埤海灣近距離看海。',
+    duration: '約 60 分鐘',
+    stops: [
+      ['南方澳觀景台', '20–30 分鐘', '先確認港灣全貌與今日能見度'],
+      ['內埤海灣', '20–25 分鐘', '下山散步，看弧形海岸與山岬'],
+      ['南方澳市區', '10–15 分鐘', '補水、洗手間或簡單採買'],
+    ],
+  },
+  {
+    id: 'half',
+    label: '安排半日',
+    title: '南方澳經典半日遊',
+    summary: '從制高點開始，再進入漁港、海岸、信仰與在地飲食。',
+    duration: '約 4 小時',
+    stops: [
+      ['南方澳觀景台', '30 分鐘', '先看全景，理解後續各景點位置'],
+      ['內埤海灣與豆腐岬', '60–80 分鐘', '散步看海，依天候調整停留'],
+      ['南方澳大橋', '30 分鐘', '看跨港景觀與漁港作業風景'],
+      ['南天宮與漁港周邊', '90 分鐘', '參拜、逛港區並安排海鮮餐'],
+    ],
+  },
+  {
+    id: 'photo',
+    label: '專程拍照',
+    title: '晨曦攝影路線',
+    summary: '從日出前藍調開始，串連高處港景與山下海岸細節。',
+    duration: '約 3–5 小時',
+    stops: [
+      ['日出前抵達觀景台', '60–90 分鐘', '腳架避開主要動線，等待曙光與港灣甦醒'],
+      ['內埤漁港', '30–45 分鐘', '拍漁船、港池與晨間作業氛圍'],
+      ['內埤海灣', '45–60 分鐘', '捕捉海岸弧線、浪花與筆架山方向'],
+      ['豆腐岬', '45–60 分鐘', '補充礁岩、岬角與外海視角'],
+    ],
+  },
+  {
+    id: 'family',
+    label: '帶長輩小孩',
+    title: '輕鬆少走路路線',
+    summary: '縮短曝曬與步行，把休息、洗手間和用餐安排在山下。',
+    duration: '約 2–3 小時',
+    stops: [
+      ['南方澳觀景台', '15–25 分鐘', '避開正午曝曬，孩童全程由成人陪同'],
+      ['南方澳遊客中心周邊', '30–45 分鐘', '安排洗手間、休息與旅遊資訊'],
+      ['南天宮', '30–45 分鐘', '平緩停留，認識漁港媽祖信仰'],
+      ['港區用餐', '60 分鐘', '以室內座位與方便停車為優先'],
+    ],
+  },
+];
+---
+<section id="itinerary" class="bg-ocean-50 py-20 sm:py-28">
+  <div class="container-site">
+    <div class="reveal mx-auto max-w-3xl text-center">
+      <p class="section-kicker text-xs font-semibold text-dawn-600">安排你的南方澳行程</p>
+      <h2 class="mt-4 text-balance text-4xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-5xl">觀景台是開場，不必是行程的終點。</h2>
+      <p class="mt-5 leading-8 text-ocean-800/70">選擇你的停留方式，立即得到一條不繞路、符合時間的南方澳順遊建議。</p>
+    </div>
+
+    <div class="reveal mt-10 flex flex-wrap justify-center gap-2" role="group" aria-label="選擇行程類型">
+      {plans.map((plan, index) => (
+        <button
+          type="button"
+          class:list={[
+            'plan-tab rounded-full border px-5 py-3 text-sm font-semibold transition',
+            index === 0 ? 'border-ocean-950 bg-ocean-950 text-white' : 'border-ocean-200 bg-white text-ocean-800 hover:border-ocean-400',
+          ]}
+          data-plan={plan.id}
+          aria-pressed={index === 0 ? 'true' : 'false'}
+        >
+          {plan.label}
+        </button>
+      ))}
+    </div>
+
+    <div class="reveal mt-8 overflow-hidden rounded-[2rem] border border-ocean-100 bg-white shadow-[0_20px_60px_rgba(16,39,44,0.08)]">
+      <div class="grid lg:grid-cols-[0.72fr_1.28fr]">
+        <div class="relative min-h-[350px] overflow-hidden bg-ocean-950">
+          <picture class="absolute inset-0">
+            <source srcset="/images/coastline-1440.avif" type="image/avif" />
+            <img src="/images/coastline-1440.webp" alt="南方澳海岸、漁港與山岬實景" class="h-full w-full object-cover" width="1440" height="960" loading="lazy" />
+          </picture>
+          <div class="absolute inset-0 bg-gradient-to-t from-ocean-950/92 via-ocean-950/35 to-transparent"></div>
+          <div class="absolute inset-x-0 bottom-0 p-7 text-white sm:p-9">
+            <span id="plan-duration" class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-xs backdrop-blur"><Icon name="clock" class="size-4" />{plans[0].duration}</span>
+            <h3 id="plan-title" class="mt-5 text-3xl font-semibold">{plans[0].title}</h3>
+            <p id="plan-summary" class="mt-3 leading-7 text-white/68">{plans[0].summary}</p>
+          </div>
+        </div>
+
+        <div class="p-7 sm:p-9">
+          <div class="flex items-center justify-between gap-4">
+            <p class="text-sm font-semibold text-ocean-950">建議停靠順序</p>
+            <span class="text-xs text-ocean-700/50">可依天候彈性刪減</span>
+          </div>
+          <ol id="plan-stops" class="mt-6 space-y-5" aria-live="polite">
+            {plans[0].stops.map((stop, index) => (
+              <li class="grid grid-cols-[2.5rem_1fr] gap-4">
+                <span class="grid size-10 place-items-center rounded-full bg-ocean-950 text-sm font-semibold text-white">{index + 1}</span>
+                <div class="border-b border-ocean-100 pb-5 last:border-0 last:pb-0">
+                  <div class="flex flex-wrap items-baseline justify-between gap-2">
+                    <h4 class="font-semibold text-ocean-950">{stop[0]}</h4>
+                    <span class="text-xs font-medium text-dawn-700">{stop[1]}</span>
+                  </div>
+                  <p class="mt-2 text-sm leading-6 text-ocean-800/65">{stop[2]}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ plans }}>
+    const planTabs = document.querySelectorAll('.plan-tab');
+    const planTitle = document.getElementById('plan-title');
+    const planSummary = document.getElementById('plan-summary');
+    const planDuration = document.getElementById('plan-duration');
+    const planStops = document.getElementById('plan-stops');
+
+    const escapeHtml = (value) => value.replace(/[&<>'"]/g, (char) => {
+      if (char === '&') return '&amp;';
+      if (char === '<') return '&lt;';
+      if (char === '>') return '&gt;';
+      if (char === "'") return '&#39;';
+      if (char === '"') return '&quot;';
+      return char;
+    });
+
+    planTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const plan = plans.find((item) => item.id === tab.dataset.plan);
+        if (!plan || !planTitle || !planSummary || !planDuration || !planStops) return;
+
+        planTabs.forEach((button) => {
+          const active = button === tab;
+          button.setAttribute('aria-pressed', String(active));
+          button.classList.toggle('bg-ocean-950', active);
+          button.classList.toggle('border-ocean-950', active);
+          button.classList.toggle('text-white', active);
+          button.classList.toggle('bg-white', !active);
+          button.classList.toggle('border-ocean-200', !active);
+          button.classList.toggle('text-ocean-800', !active);
+        });
+
+        planTitle.textContent = plan.title;
+        planSummary.textContent = plan.summary;
+        planDuration.innerHTML = `<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 100-18 9 9 0 000 18z"></path><path d="M12 7v5l3 2"></path></svg>${escapeHtml(plan.duration)}`;
+        planStops.innerHTML = plan.stops.map((stop, index) => `
+          <li class="grid grid-cols-[2.5rem_1fr] gap-4">
+            <span class="grid size-10 place-items-center rounded-full bg-ocean-950 text-sm font-semibold text-white">${index + 1}</span>
+            <div class="border-b border-ocean-100 pb-5 last:border-0 last:pb-0">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h4 class="font-semibold text-ocean-950">${escapeHtml(stop[0])}</h4>
+                <span class="text-xs font-medium text-dawn-700">${escapeHtml(stop[1])}</span>
+              </div>
+              <p class="mt-2 text-sm leading-6 text-ocean-800/65">${escapeHtml(stop[2])}</p>
+            </div>
+          </li>`).join('');
+      });
+    });
+  </script>
+</section>

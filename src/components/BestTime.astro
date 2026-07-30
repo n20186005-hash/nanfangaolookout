@@ -1,0 +1,83 @@
+---
+import Icon from './Icon.astro';
+import SunTimes from './SunTimes.astro';
+
+const moments = [
+  {
+    icon: 'sun',
+    time: '日出前後',
+    title: '晨曦與港灣輪廓',
+    text: '最適合等待海面晨光。建議在民用曙光前抵達，先拍藍調，再看港區逐漸甦醒。',
+    note: '攝影首選',
+  },
+  {
+    icon: 'camera',
+    time: '晴朗上午',
+    title: '看清山岬與漁船',
+    text: '光線充足、海色明亮，第一次來訪最容易看懂漁港、海灣、聚落與外海地形。',
+    note: '初訪推薦',
+  },
+  {
+    icon: 'wind',
+    time: '午後時段',
+    title: '海風與遼闊視野',
+    text: '適合順遊停留，但夏季曝曬明顯。海面反光較強，準備帽子、飲水與偏光鏡更舒適。',
+    note: '注意防曬',
+  },
+  {
+    icon: 'moon',
+    time: '傍晚至夜間',
+    title: '藍調與漁港燈火',
+    text: '此處不是典型海上落日點，真正迷人的是天色轉藍後，港區道路與船燈逐一亮起。',
+    note: '夜景人氣',
+  },
+] as const;
+---
+<section id="best-time" class="overflow-hidden bg-ocean-950 py-20 text-white sm:py-28">
+  <div class="container-site">
+    <div class="reveal grid gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-end">
+      <div>
+        <p class="section-kicker text-xs font-semibold text-dawn-300">從晨光到港灣燈火</p>
+        <h2 class="mt-4 max-w-3xl text-balance text-4xl font-semibold tracking-[-0.03em] sm:text-5xl">同一座觀景台，四種不同的海港表情。</h2>
+      </div>
+      <p class="max-w-xl leading-8 text-white/62 lg:justify-self-end">
+        南方澳朝向太平洋，清晨最有機會迎接海面曙光；傍晚則適合等待藍調與港灣燈火。能見度往往比時間更重要。
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
+      <div class="reveal">
+        <SunTimes />
+      </div>
+      <div class="reveal grid gap-4 sm:grid-cols-2">
+        {moments.map((moment) => (
+          <article class="group rounded-[1.7rem] border border-white/10 bg-white/[0.055] p-6 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.08]">
+            <div class="flex items-center justify-between gap-3">
+              <span class="grid size-11 place-items-center rounded-full bg-white/10 text-dawn-300">
+                <Icon name={moment.icon} class="size-5" />
+              </span>
+              <span class="rounded-full border border-white/10 px-3 py-1.5 text-xs text-white/52">{moment.note}</span>
+            </div>
+            <p class="mt-6 text-sm font-medium text-dawn-300">{moment.time}</p>
+            <h3 class="mt-2 text-xl font-semibold">{moment.title}</h3>
+            <p class="mt-3 text-sm leading-7 text-white/58">{moment.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <figure class="reveal relative mt-8 overflow-hidden rounded-[2rem]">
+      <picture>
+        <source srcset="/images/dusk-1440.avif" type="image/avif" />
+        <source srcset="/images/dusk-960.webp 960w, /images/dusk-1440.webp 1440w, /images/dusk-1920.webp 1920w" type="image/webp" />
+        <img src="/images/dusk-1920.webp" alt="黃昏時分的南方澳港灣與山海景色" class="aspect-[16/7] min-h-[340px] w-full object-cover" width="1920" height="1280" loading="lazy" />
+      </picture>
+      <div class="absolute inset-0 bg-gradient-to-r from-ocean-950/80 via-ocean-950/25 to-transparent"></div>
+      <figcaption class="absolute bottom-7 left-7 max-w-lg sm:bottom-10 sm:left-10">
+        <p class="text-xs font-semibold tracking-[0.14em] text-dawn-300">傍晚觀景提示</p>
+        <p class="mt-3 text-2xl font-semibold sm:text-3xl">別急著在日落後離開。</p>
+        <p class="mt-3 max-w-md text-sm leading-7 text-white/68">再等約二、三十分鐘，天空與港區通常會進入更有層次的藍調時刻。</p>
+      </figcaption>
+    </figure>
+  </div>
+</section>

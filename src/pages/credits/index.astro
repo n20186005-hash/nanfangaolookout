@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+
+const credits = [
+  {
+    image: '/images/hero-960.webp',
+    title: '南方澳港區高處景觀',
+    author: 'lienyuan lee',
+    license: 'CC BY 3.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Nanfangao,_Taiwan.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by/3.0/',
+    changes: '裁切、縮放、轉為 WebP／AVIF，部分頁面加上文字遮罩。',
+  },
+  {
+    image: '/images/dusk-960.webp',
+    title: '南方澳港灣黃昏景觀',
+    author: '舟集 Toadboat',
+    license: 'CC BY-SA 4.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Nanfangao_fishing_port_in_Yilan_County.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    changes: '裁切、縮放、轉為 WebP／AVIF，部分頁面加上漸層遮罩。',
+  },
+  {
+    image: '/images/deck-960.webp',
+    title: '南方澳觀景台實景',
+    author: 'Kenming Wang',
+    license: 'CC BY-SA 2.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Nanfangao_Observation_Deck.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/',
+    changes: '裁切、縮放並轉為 WebP／AVIF。',
+  },
+  {
+    image: '/images/neipi-960.webp',
+    title: '內埤漁港與海灣俯瞰',
+    author: 'Peellden',
+    license: 'CC BY-SA 4.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Neipi_Fishing_Port,_Yilan_County,_Taiwan.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    changes: '裁切、縮放、轉為 WebP／AVIF，作為首頁與景觀示意使用。',
+  },
+  {
+    image: '/images/coastline-960.webp',
+    title: '南方澳海岸與港灣',
+    author: 'CEphoto, Uwe Aranas',
+    license: 'CC BY-SA 3.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Taiwan_2009_Suao_Nanfangao_Coast_FRD_8294.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    changes: '裁切、縮放並轉為 WebP／AVIF。',
+  },
+];
+---
+<BaseLayout title="圖片授權｜南方澳觀景台" description="NanfangaoLookout.com 使用的南方澳實景照片來源、攝影者、授權條款與修改說明。">
+  <main class="min-h-screen bg-ocean-50 pb-20">
+    <header class="bg-ocean-950 py-8 text-white">
+      <div class="container-site flex items-center justify-between gap-4">
+        <a href="/" class="flex items-center gap-3 font-semibold"><span class="grid size-10 place-items-center rounded-full bg-white/10"><Icon name="waves" class="size-5" /></span>南方澳觀景台</a>
+        <a href="/" class="inline-flex items-center gap-2 text-sm text-white/66 hover:text-white"><Icon name="arrow" class="size-4 rotate-180" />返回首頁</a>
+      </div>
+    </header>
+
+    <div class="container-site pt-14">
+      <div class="max-w-3xl">
+        <p class="section-kicker text-xs font-semibold text-dawn-600">圖片授權</p>
+        <h1 class="mt-4 text-4xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-5xl">圖片授權與攝影者資訊</h1>
+        <p class="mt-5 leading-8 text-ocean-800/70">本站以真實照片呈現南方澳觀景台及周邊景觀。以下照片來自 Wikimedia Commons，依各自的 Creative Commons 授權使用；本站不主張原始照片著作權。</p>
+      </div>
+
+      <div class="mt-10 grid gap-5">
+        {credits.map((credit) => (
+          <article class="grid overflow-hidden rounded-[1.7rem] border border-ocean-100 bg-white sm:grid-cols-[260px_1fr]">
+            <img src={credit.image} alt={credit.title} class="h-full min-h-48 w-full object-cover" width="960" height="640" loading="lazy" />
+            <div class="p-6 sm:p-7">
+              <h2 class="text-xl font-semibold text-ocean-950">{credit.title}</h2>
+              <dl class="mt-5 grid gap-3 text-sm sm:grid-cols-[6rem_1fr]">
+                <dt class="text-ocean-700/55">攝影者</dt><dd class="font-medium text-ocean-900">{credit.author}</dd>
+                <dt class="text-ocean-700/55">授權</dt><dd><a href={credit.licenseUrl} target="_blank" rel="license noopener noreferrer" class="font-medium text-ocean-800 underline decoration-ocean-300 underline-offset-4">{credit.license}</a></dd>
+                <dt class="text-ocean-700/55">修改</dt><dd class="leading-6 text-ocean-800/70">{credit.changes}</dd>
+                <dt class="text-ocean-700/55">原始檔案</dt><dd><a href={credit.source} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-medium text-ocean-800 underline decoration-ocean-300 underline-offset-4">Wikimedia Commons <Icon name="external" class="size-3.5" /></a></dd>
+              </dl>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <aside class="mt-8 rounded-[1.7rem] bg-ocean-950 p-7 text-sm leading-7 text-white/68">
+        <p class="font-semibold text-white">授權提醒</p>
+        <p class="mt-2">若再次使用本站經處理的照片，請回到對應原始檔案頁確認完整授權條款，並保留攝影者署名、授權名稱與來源連結。ShareAlike 授權的衍生作品亦需以相同授權方式分享。</p>
+      </aside>
+    </div>
+  </main>
+</BaseLayout>
