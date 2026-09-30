@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
+import { withSiteName } from '../../data/site';
 
 const credits = [
   {
@@ -50,7 +51,7 @@ const credits = [
   },
 ];
 ---
-<BaseLayout title="圖片授權｜南方澳觀景台" description="NanfangaoLookout.com 使用的南方澳實景照片來源、攝影者、授權條款與修改說明。">
+<BaseLayout title={withSiteName('圖片授權')} description="NanfangaoLookout.com 使用的南方澳實景照片來源、攝影者、授權條款與修改說明。">
   <main class="min-h-screen bg-ocean-50 pb-20">
     <header class="bg-ocean-950 py-8 text-white">
       <div class="container-site flex items-center justify-between gap-4">

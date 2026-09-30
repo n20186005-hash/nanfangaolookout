@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
+import { withSiteName } from '../../data/site';
 ---
-<BaseLayout title="隱私說明｜南方澳觀景台" description="NanfangaoLookout.com 的網站統計、Cookie 與個人資料處理說明。" noindex={true}>
+<BaseLayout title={withSiteName('隱私說明')} description="NanfangaoLookout.com 的網站統計、Cookie 與個人資料處理說明。" noindex={true}>
   <main class="min-h-screen bg-ocean-50 pb-20">
     <header class="bg-ocean-950 py-8 text-white">
       <div class="container-site flex items-center justify-between gap-4">

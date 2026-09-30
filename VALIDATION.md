@@ -14,6 +14,9 @@
 - 日出計算腳本執行測試：2026-07-29 台灣時間輸出民用曙光 04:54、日出 05:19、建議抵達 04:42
 - GA4 衡量 ID 存在性檢查
 
-限制：
+## 2026-09-30 更新（SEO 優化）
 
-此執行環境無法連線 npm registry，因此未能在容器內執行 `pnpm install` 與正式 `astro build`。專案未包含 `node_modules`；在可正常連線 npm 的環境執行 `pnpm install && pnpm build` 即可完成最終框架建置驗證。
+- 以 Node 24.19.0 + pnpm 10.15.1（`--config.node-linker=hoisted`）完成 `pnpm install`，並以 `node node_modules/astro/bin/astro.mjs build` 成功建置：8 個頁面（首頁、/status/、/parking/、/night-view/、/nearby/、/credits/、/privacy/、404）。
+- 逐頁檢查 `dist/**/index.html`：title／description／canonical／og:site_name 皆正確輸出，首頁含 `TouristAttraction`（aggregateRating、telephone、hasMap、isAccessibleForFree）+ `FAQPage`（12 題）+ `WebSite`；四個主題頁各含 `FAQPage`（6 題）+ `BreadcrumbList` + `WebPage`。
+- `public/sitemap.xml` 已納入首頁與四個主題頁，`public/_headers` 已加上 HSTS。
+- `http://` → `https://` 與 `www` → 主網域的 301 無法由 Workers Static Assets 的 `_redirects` 處理，需在 Cloudflare 控制台以 Always Use HTTPS 與 Redirect Rules 設定（尚未在控制台驗證）。

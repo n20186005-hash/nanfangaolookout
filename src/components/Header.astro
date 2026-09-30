@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { ATTRACTION } from '../data/site';
 const links = [
   ['#highlights', '景觀亮點'],
   ['#best-time', '最佳時間'],
@@ -28,7 +29,7 @@ const links = [
 
     <div class="flex items-center gap-2">
       <a
-        href="https://www.google.com/maps/dir/?api=1&destination=24.5765079%2C121.8667597&destination_place_id=ChIJMYba8knOZzQRGUjgaehywyq"
+        href={ATTRACTION.navigationUrl}
         target="_blank"
         rel="noopener noreferrer"
         class="hidden items-center gap-2 rounded-full bg-dawn-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-dawn-600 sm:inline-flex"
@@ -45,7 +46,7 @@ const links = [
             <a href={href} class="block rounded-xl px-4 py-3 text-sm font-medium hover:bg-ocean-50">{label}</a>
           ))}
           <a
-            href="https://www.google.com/maps/dir/?api=1&destination=24.5765079%2C121.8667597&destination_place_id=ChIJMYba8knOZzQRGUjgaehywyq"
+            href={ATTRACTION.navigationUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="mt-1 flex items-center gap-2 rounded-xl bg-dawn-500 px-4 py-3 text-sm font-semibold text-white"

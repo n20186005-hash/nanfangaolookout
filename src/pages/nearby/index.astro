@@ -1,0 +1,150 @@
+---
+import SubpageLayout from '../../layouts/SubpageLayout.astro';
+import FAQ from '../../components/FAQ.astro';
+import Icon from '../../components/Icon.astro';
+import { nearbyFaqs } from '../../data/faqs';
+import { SITE_URL, withSiteName } from '../../data/site';
+import { buildFaq } from '../../lib/schema';
+
+const title = withSiteName('南方澳觀景台周邊順遊：內埤海灣、豆腐岬、漁港美食與一日遊');
+const description =
+  '南方澳觀景台周邊順遊懶人包：內埤海灣、豆腐岬、南方澳大橋、南天宮與蘇澳冷泉，搭配漁港海鮮、米糕與魚丸美食，並提供 1 小時、半日與一日行程建議。';
+
+const spots = [
+  { icon: 'waves', name: '內埤海灣（情人灣）', distance: '下山約 5 分鐘車程', text: '弧形海岸與山岬，是最接近觀景台視角的海邊散步點。' },
+  { icon: 'mountain', name: '豆腐岬', distance: '緊鄰內埤海灣', text: '礁岩與岬角地形，可補充不同角度的海岸畫面。' },
+  { icon: 'ship', name: '南方澳大橋', distance: '港區內', text: '跨港景觀與漁船作業，是理解南方澳漁港規模的關鍵位置。' },
+  { icon: 'heart', name: '南天宮', distance: '南方澳市區', text: '漁港媽祖信仰中心，也是下雨天最穩定的室內備案之一。' },
+  { icon: 'info', name: '蘇澳冷泉', distance: '蘇澳市區', text: '夏天可與觀景台、漁港串成一日路線；開放與收費請以現場公告為準。' },
+] as const;
+
+const foodTypes = [
+  { icon: 'ship', title: '當季海鮮', text: '依當日漁獲選擇，是南方澳漁港最直接的一餐。' },
+  { icon: 'camera', title: '米糕與小吃', text: '港區周邊常見的在地口味，適合停留時間不長時快速解決。' },
+  { icon: 'waves', title: '飛虎魚丸', text: '南方澳代表性的漁產加工品，可作為伴手或簡單暖食。' },
+  { icon: 'clock', title: '用餐時段', text: '假日與漁港活動日人潮集中，建議避開尖峰或先電話確認。' },
+] as const;
+
+const plans = [
+  {
+    label: '只有 1 小時',
+    duration: '約 60 分鐘',
+    stops: ['南方澳觀景台 20–30 分鐘', '內埤海灣散步 20–25 分鐘', '市區補水或簡單採買 10–15 分鐘'],
+  },
+  {
+    label: '安排半日',
+    duration: '約 4 小時',
+    stops: ['南方澳觀景台 30 分鐘', '內埤海灣與豆腐岬 60–80 分鐘', '南方澳大橋與港區 30 分鐘', '南天宮與漁港用餐 90 分鐘'],
+  },
+  {
+    label: '完整一日',
+    duration: '約 7–8 小時',
+    stops: ['清晨或傍晚的觀景台 60 分鐘', '內埤海灣與豆腐岬 90 分鐘', '南方澳漁港與南天宮 120 分鐘', '蘇澳市區冷泉與用餐 120 分鐘', '回觀景台看夜景 60 分鐘'],
+  },
+] as const;
+
+const crumbs = [
+  { name: '首頁', url: SITE_URL },
+  { name: '周邊順遊與美食', url: `${SITE_URL}nearby/` },
+];
+---
+
+<SubpageLayout
+  title={title}
+  description={description}
+  kicker="周邊景點・美食・行程"
+  heading="觀景台是開場，順遊才是完整行程"
+  intro="從高處看完地形，再下山走進內埤海灣、豆腐岬與南方澳漁港。以下景點都能與觀景台安排在同一天。"
+  current="/nearby/"
+  crumbs={crumbs}
+  structuredData={[buildFaq(nearbyFaqs)]}
+>
+  <section class="py-16 sm:py-20">
+    <div class="container-site">
+      <div class="reveal max-w-3xl">
+        <p class="section-kicker text-xs font-semibold text-dawn-600">周邊景點</p>
+        <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-4xl">下山後，可以先去這五個地方。</h2>
+        <p class="mt-5 leading-8 text-ocean-800/72">距離與車程會受路況影響，僅供安排順序參考。</p>
+      </div>
+
+      <div class="reveal mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {spots.map((spot) => (
+          <article class="rounded-[1.7rem] border border-ocean-100 bg-white p-6">
+            <span class="grid size-11 place-items-center rounded-full bg-ocean-50 text-ocean-700"><Icon name={spot.icon} class="size-5" /></span>
+            <h3 class="mt-5 text-xl font-semibold text-ocean-950">{spot.name}</h3>
+            <p class="mt-1 text-xs font-medium text-dawn-700">{spot.distance}</p>
+            <p class="mt-3 text-sm leading-7 text-ocean-800/70">{spot.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ocean-50 py-16 sm:py-20">
+    <div class="container-site grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
+      <div class="reveal">
+        <p class="section-kicker text-xs font-semibold text-dawn-600">吃什麼</p>
+        <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-4xl">以類型找吃的，不推特定店家。</h2>
+        <p class="mt-5 leading-8 text-ocean-800/72">
+          南方澳以漁港為核心，餐食也跟著漁獲走。本站只整理類型與時段建議，實際選擇請依當日漁獲、現場人潮與個人預算決定。
+        </p>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          {foodTypes.map((item) => (
+            <div class="rounded-2xl border border-ocean-100 bg-white p-5">
+              <span class="grid size-10 place-items-center rounded-full bg-ocean-50 text-ocean-700"><Icon name={item.icon} class="size-5" /></span>
+              <h3 class="mt-4 font-semibold text-ocean-950">{item.title}</h3>
+              <p class="mt-2 text-sm leading-7 text-ocean-800/70">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <figure class="reveal overflow-hidden rounded-[2rem]">
+        <picture>
+          <source srcset="/images/coastline-1440.avif" type="image/avif" />
+          <img
+            src="/images/coastline-1440.webp"
+            alt="南方澳海岸線、山岬與漁港全景，可與觀景台安排在同一天"
+            class="aspect-[4/3] w-full object-cover"
+            width="1440"
+            height="960"
+            loading="lazy"
+          />
+        </picture>
+        <figcaption class="mt-4 text-sm text-ocean-700/60">觀景台看到的海岸線，下山後就能近距離走一遍。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-20">
+    <div class="container-site">
+      <div class="reveal max-w-3xl">
+        <p class="section-kicker text-xs font-semibold text-dawn-600">行程組合</p>
+        <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-4xl">依時間挑一條順遊路線。</h2>
+      </div>
+
+      <div class="reveal mt-10 grid gap-4 lg:grid-cols-3">
+        {plans.map((plan) => (
+          <article class="flex h-full flex-col rounded-[1.7rem] border border-ocean-100 bg-white p-6">
+            <p class="text-sm font-semibold text-dawn-700">{plan.duration}</p>
+            <h3 class="mt-2 text-xl font-semibold text-ocean-950">{plan.label}</h3>
+            <ol class="mt-5 space-y-3 text-sm leading-7 text-ocean-800/70">
+              {plan.stops.map((stop) => (
+                <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-dawn-500"></span><span>{stop}</span></li>
+              ))}
+            </ol>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FAQ
+    items={nearbyFaqs}
+    kicker="周邊順遊 FAQ"
+    title="關於周邊與美食，最常被問的六件事。"
+    description="只有一小時怎麼排、下雨備案是什麼、附近有沒有住宿，這裡一次回答。"
+    linkHref="/night-view/"
+    linkLabel="回頭安排夜景時段"
+  />
+</SubpageLayout>

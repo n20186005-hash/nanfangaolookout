@@ -1,0 +1,135 @@
+---
+import SubpageLayout from '../../layouts/SubpageLayout.astro';
+import FAQ from '../../components/FAQ.astro';
+import Icon from '../../components/Icon.astro';
+import { statusFaqs } from '../../data/faqs';
+import { ATTRACTION, SITE_URL, withSiteName } from '../../data/site';
+import { buildFaq } from '../../lib/schema';
+
+const title = withSiteName('南方澳觀景台開放嗎？免門票、開放時間與現場設施');
+const description =
+  '南方澳觀景台為開放式平台，免門票、無須預約，可全時段前往。整理開放狀態、現場設施、停留時間，以及颱風豪雨或道路施工時的路況提醒。';
+
+const statusCards = [
+  {
+    icon: 'ticket',
+    label: '門票',
+    value: '免門票',
+    text: '現場不收費、沒有售票窗口，也不需要事先預約。',
+  },
+  {
+    icon: 'clock',
+    label: '開放時間',
+    value: '全時段',
+    text: '屬開放式空間，清晨與夜間都可前往；請自行留意照明與路況。',
+  },
+  {
+    icon: 'info',
+    label: '開放狀態',
+    value: '路況優先',
+    text: '颱風、豪雨、落石或施工時，蘇花公路與台9丁線可能預警性封閉或管制。',
+  },
+] as const;
+
+const facilities = [
+  ['觀景平台與欄杆', '主要設施，視野朝向南方澳漁港、內埤海灣與太平洋。'],
+  ['停車空間', '台9丁線路旁免費停放，車位有限，細節見停車與交通頁。'],
+  ['遮蔭與避雨', '有限。夏季注意防曬與補水，雨天請自備雨具。'],
+  ['洗手間與販賣', '不要預設現場可用，建議先在蘇澳、南方澳市區或遊客中心處理。'],
+  ['夜間照明', '有限。夜間前往請準備照明並注意來車。'],
+] as const;
+
+const crumbs = [
+  { name: '首頁', url: SITE_URL },
+  { name: '開放狀態與門票', url: `${SITE_URL}status/` },
+];
+---
+
+<SubpageLayout
+  title={title}
+  description={description}
+  kicker="開放狀態・門票・現場設施"
+  heading="南方澳觀景台現在開放嗎？要門票嗎？"
+  intro="觀景台是蘇花公路（台9丁線）路旁的開放式平台，沒有閘門也不收費。真正會影響行程的是天候與路況，而不是營業時間。"
+  current="/status/"
+  crumbs={crumbs}
+  structuredData={[buildFaq(statusFaqs)]}
+>
+  <section class="py-16 sm:py-20">
+    <div class="container-site grid gap-4 sm:grid-cols-3">
+      {statusCards.map((card) => (
+        <article class="reveal rounded-[1.7rem] border border-ocean-100 bg-white p-6">
+          <span class="grid size-11 place-items-center rounded-full bg-ocean-50 text-ocean-700"><Icon name={card.icon} class="size-5" /></span>
+          <p class="mt-5 text-xs font-semibold tracking-[0.14em] text-ocean-700/60">{card.label}</p>
+          <p class="mt-2 text-2xl font-semibold text-ocean-950">{card.value}</p>
+          <p class="mt-3 text-sm leading-7 text-ocean-800/70">{card.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-ocean-50 py-16 sm:py-20">
+    <div class="container-site grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+      <div class="reveal">
+        <p class="section-kicker text-xs font-semibold text-dawn-600">關於「暫停營業」</p>
+        <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-4xl">為什麼會查到暫停營業？</h2>
+        <p class="mt-5 leading-8 text-ocean-800/72">
+          觀景台不是商家，沒有營業或歇業的狀態。這類查詢多半來自旅人擔心施工、封路或天候影響行程。出發前先看蘇花公路路況與現場公告，比查營業時間更實際。
+        </p>
+      </div>
+      <div class="reveal rounded-[1.7rem] border border-ocean-100 bg-white p-7 sm:p-9">
+        <h3 class="text-xl font-semibold text-ocean-950">現場設施與限制</h3>
+        <dl class="mt-6 divide-y divide-ocean-100">
+          {facilities.map(([label, text]) => (
+            <div class="grid gap-1 py-4 sm:grid-cols-[10rem_1fr] sm:gap-4">
+              <dt class="font-semibold text-ocean-950">{label}</dt>
+              <dd class="text-sm leading-7 text-ocean-800/70">{text}</dd>
+            </div>
+          ))}
+        </dl>
+        <p class="mt-5 rounded-2xl bg-ocean-50 p-4 text-sm leading-7 text-ocean-800/70">
+          景點電話：{ATTRACTION.telephoneDisplay}（Google 商家資訊，僅供參考）。地址：{ATTRACTION.addressFull}。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-20">
+    <div class="container-site grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <div class="reveal">
+        <p class="section-kicker text-xs font-semibold text-dawn-600">停留多久</p>
+        <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-4xl">一般停留 20–40 分鐘，看日出或夜景請抓 60–90 分鐘。</h2>
+        <p class="mt-5 leading-8 text-ocean-800/72">
+          白天停留重點在看清港灣與山岬地形；清晨與傍晚則是等光線變化。若時間有限，先看總覽頁的今日晨光時間，再決定上山時段。
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/night-view/" class="inline-flex items-center gap-2 rounded-full bg-ocean-950 px-5 py-3 font-semibold text-white transition hover:bg-ocean-800">
+            <Icon name="moon" class="size-4" />
+            夜景與日出時段
+          </a>
+          <a href="/parking/" class="inline-flex items-center gap-2 rounded-full border border-ocean-200 bg-white px-5 py-3 font-semibold text-ocean-800 transition hover:border-ocean-400">
+            <Icon name="parking" class="size-4" />
+            停車與交通
+          </a>
+        </div>
+      </div>
+      <aside class="reveal rounded-[1.7rem] bg-ocean-950 p-7 text-white sm:p-9">
+        <p class="text-sm font-semibold text-dawn-300">出發前三檢查</p>
+        <ul class="mt-5 space-y-4 text-sm leading-7 text-white/70">
+          <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-dawn-500"></span><span>蘇花公路與台9丁線是否有預警性封閉或施工管制。</span></li>
+          <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-dawn-500"></span><span>當日雲量、雨勢與海上能見度，決定值不值得上山。</span></li>
+          <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-dawn-500"></span><span>飲水、洗手間與照明是否已在山下處理好。</span></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <FAQ
+    items={statusFaqs}
+    kicker="開放與門票 FAQ"
+    title="關於開放狀態，最常被問的六件事。"
+    description="免門票、不用預約，但仍要留意路況與天候。以下是出發前最常被問的問題。"
+    linkHref="/parking/"
+    linkLabel="接著看停車與交通"
+  />
+</SubpageLayout>

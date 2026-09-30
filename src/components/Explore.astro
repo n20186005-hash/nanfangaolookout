@@ -1,0 +1,71 @@
+---
+import Icon from './Icon.astro';
+import { PAGES } from '../data/site';
+
+interface Props {
+  current?: string;
+  title?: string;
+  description?: string;
+}
+
+const {
+  current = '',
+  title = '延伸閱讀：把南方澳排成完整行程',
+  description = '觀景台只是開場。依你的需求選擇主題頁，查開放、找車位、等夜景或串連周邊景點。',
+} = Astro.props;
+
+const cards = [
+  { path: '/status/', icon: 'ticket', label: '開放狀態與門票', text: '是否開放、免門票、開放時間、現場設施與停留建議。' },
+  { path: '/parking/', icon: 'parking', label: '停車與交通', text: '台9丁線自駕路線、免費停車空間、安全迴轉與大眾運輸。' },
+  { path: '/night-view/', icon: 'moon', label: '夜景與日出', text: '藍調時刻、港灣燈火、日出時間與夜拍安全提醒。' },
+  { path: '/nearby/', icon: 'route', label: '周邊順遊與美食', text: '內埤海灣、豆腐岬、南方澳漁港美食與一日遊路線。' },
+] as const;
+
+const items = cards.filter((card) => card.path !== current);
+---
+<section class="border-t border-ocean-100 bg-ocean-50 py-16 sm:py-20">
+  <div class="container-site">
+    <div class="reveal max-w-3xl">
+      <p class="section-kicker text-xs font-semibold text-dawn-600">延伸閱讀</p>
+      <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-4xl">{title}</h2>
+      <p class="mt-4 leading-8 text-ocean-800/70">{description}</p>
+    </div>
+
+    <div class="reveal mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((card) => (
+        <a
+          href={card.path}
+          class="group flex h-full flex-col rounded-[1.6rem] border border-ocean-100 bg-white p-6 transition hover:-translate-y-1 hover:border-ocean-300 hover:shadow-[0_18px_44px_rgba(16,39,44,0.09)]"
+        >
+          <span class="grid size-11 place-items-center rounded-full bg-ocean-50 text-ocean-700">
+            <Icon name={card.icon} class="size-5" />
+          </span>
+          <h3 class="mt-5 text-xl font-semibold text-ocean-950">{card.label}</h3>
+          <p class="mt-2 flex-1 text-sm leading-7 text-ocean-800/70">{card.text}</p>
+          <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ocean-800 transition group-hover:text-dawn-700">
+            前往閱讀
+            <Icon name="arrow" class="size-4" />
+          </span>
+        </a>
+      ))}
+      {current && (
+        <a
+          href="/"
+          class="group flex h-full flex-col rounded-[1.6rem] border border-dashed border-ocean-200 bg-white/60 p-6 transition hover:border-ocean-400"
+        >
+          <span class="grid size-11 place-items-center rounded-full bg-white text-ocean-700">
+            <Icon name="waves" class="size-5" />
+          </span>
+          <h3 class="mt-5 text-xl font-semibold text-ocean-950">回到觀景台總覽</h3>
+          <p class="mt-2 flex-1 text-sm leading-7 text-ocean-800/70">景觀亮點、今日曙光時間、實景照片與完整 FAQ。</p>
+          <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ocean-800 transition group-hover:text-dawn-700">
+            回首頁
+            <Icon name="arrow" class="size-4" />
+          </span>
+        </a>
+      )}
+    </div>
+
+    <p class="mt-6 text-xs text-ocean-700/60">主題頁：{PAGES.map((page) => page.label).join('・')}</p>
+  </div>
+</section>

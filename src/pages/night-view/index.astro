@@ -1,0 +1,114 @@
+---
+import SubpageLayout from '../../layouts/SubpageLayout.astro';
+import FAQ from '../../components/FAQ.astro';
+import Icon from '../../components/Icon.astro';
+import SunTimes from '../../components/SunTimes.astro';
+import { nightViewFaqs } from '../../data/faqs';
+import { SITE_URL, withSiteName } from '../../data/site';
+import { buildFaq } from '../../lib/schema';
+
+const title = withSiteName('南方澳觀景台夜景與日出：藍調時刻、最佳時段與拍攝建議');
+const description =
+  '南方澳觀景台夜景與日出攻略：藍調時刻與港灣燈火的最佳時間、今日曙光與日出推算、夜拍裝備與夜間上山安全提醒。';
+
+const timings = [
+  { icon: 'sun', time: '日落前 30 分鐘', title: '先卡位、看晚霞', text: '先找到視野開闊的位置，順便確認雲層與海面能見度。' },
+  { icon: 'camera', time: '日落後 20–30 分鐘', title: '藍調時刻', text: '天空轉為深藍，港區燈火亮度最接近，是夜景最好拍的時段。' },
+  { icon: 'moon', time: '日落後 1 小時', title: '港灣燈火', text: '漁港作業燈、道路與沿岸住家燈光層次最完整。' },
+  { icon: 'clock', time: '民用曙光前 10–15 分鐘', title: '日出版本', text: '若改成清晨前來，依當日曙光時間提前抵達，先拍藍調再等日出。' },
+] as const;
+
+const photoTips = [
+  { icon: 'camera', title: '穩定優先', text: '現場風大，腳架或穩定的欄杆依託比長曝參數更重要。' },
+  { icon: 'moon', title: '保留藍調', text: '曝光別拉太亮，天空的藍與燈火的暖才能同時留住。' },
+  { icon: 'wind', title: '防風保暖', text: '海風明顯，薄風衣與手套會讓等待舒服很多。' },
+  { icon: 'info', title: '照明與安全', text: '準備頭燈或手電筒，下車前先確認來車，避免靠近欄杆邊緣。' },
+] as const;
+
+const crumbs = [
+  { name: '首頁', url: SITE_URL },
+  { name: '夜景與日出', url: `${SITE_URL}night-view/` },
+];
+---
+
+<SubpageLayout
+  title={title}
+  description={description}
+  kicker="夜景・藍調・日出"
+  heading="南方澳觀景台的夜景與日出，什麼時候最好看？"
+  intro="這裡不是太陽直接落入海面的夕陽點，真正迷人的是天色轉藍後，南方澳漁港燈火逐一亮起的高處視角。"
+  current="/night-view/"
+  crumbs={crumbs}
+  structuredData={[buildFaq(nightViewFaqs)]}
+>
+  <section class="py-16 sm:py-20">
+    <div class="container-site grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+      <div class="reveal">
+        <SunTimes />
+      </div>
+      <div class="reveal grid gap-4 sm:grid-cols-2">
+        {timings.map((item) => (
+          <article class="rounded-[1.7rem] border border-ocean-100 bg-white p-6">
+            <span class="grid size-11 place-items-center rounded-full bg-ocean-50 text-ocean-700"><Icon name={item.icon} class="size-5" /></span>
+            <p class="mt-5 text-xs font-semibold tracking-[0.12em] text-dawn-700">{item.time}</p>
+            <h3 class="mt-2 text-xl font-semibold text-ocean-950">{item.title}</h3>
+            <p class="mt-2 text-sm leading-7 text-ocean-800/70">{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ocean-950 py-16 text-white sm:py-20">
+    <div class="container-site grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+      <div class="reveal">
+        <p class="section-kicker text-xs font-semibold text-dawn-300">夜拍提醒</p>
+        <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">風大、照明少，穩定與安全先顧好。</h2>
+        <p class="mt-5 leading-8 text-white/66">
+         觀景台是露天平台，夜間沒有充足照明。把裝備與保暖準備好，才能安心等藍調與燈火。
+        </p>
+        <a href="/parking/" class="mt-8 inline-flex items-center gap-2 rounded-full bg-dawn-500 px-5 py-3 font-semibold text-white transition hover:bg-dawn-600">
+          <Icon name="parking" class="size-4" />
+          夜間停車與路況提醒
+        </a>
+      </div>
+      <div class="reveal grid gap-4 sm:grid-cols-2">
+        {photoTips.map((tip) => (
+          <article class="rounded-[1.7rem] border border-white/10 bg-white/[0.055] p-6">
+            <span class="grid size-11 place-items-center rounded-full bg-white/10 text-dawn-300"><Icon name={tip.icon} class="size-5" /></span>
+            <h3 class="mt-5 text-lg font-semibold">{tip.title}</h3>
+            <p class="mt-2 text-sm leading-7 text-white/60">{tip.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-20">
+    <div class="container-site">
+      <figure class="reveal overflow-hidden rounded-[2rem]">
+        <picture>
+          <source srcset="/images/dusk-1440.avif" type="image/avif" />
+          <img
+            src="/images/dusk-1920.webp"
+            alt="黃昏與藍調時刻的南方澳港灣燈火，由觀景台方向俯瞰"
+            class="aspect-[16/7] min-h-[320px] w-full object-cover"
+            width="1920"
+            height="1280"
+            loading="lazy"
+          />
+        </picture>
+        <figcaption class="mt-4 text-sm text-ocean-700/60">傍晚的南方澳港灣：日落後再等一會，燈火與藍調會同時出現。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <FAQ
+    items={nightViewFaqs}
+    kicker="夜景與日出 FAQ"
+    title="關於夜景與日出，最常被問的六件事。"
+    description="幾點到、要帶什麼、夜間上山安不安全，這裡一次整理。"
+    linkHref="/status/"
+    linkLabel="查看開放狀態與門票"
+  />
+</SubpageLayout>

@@ -1,0 +1,99 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Footer from '../components/Footer.astro';
+import Explore from '../components/Explore.astro';
+import { BRAND_NAME, PAGES, ATTRACTION } from '../data/site';
+import { buildBreadcrumb, buildWebPage, type CrumbItem } from '../lib/schema';
+
+interface Props {
+  title: string;
+  description: string;
+  kicker: string;
+  heading: string;
+  intro: string;
+  current: string;
+  crumbs: CrumbItem[];
+  structuredData?: Record<string, unknown>[];
+}
+
+const { title, description, kicker, heading, intro, current, crumbs, structuredData = [] } = Astro.props;
+
+const pageUrl = crumbs[crumbs.length - 1].url;
+const schema: Record<string, unknown>[] = [
+  ...structuredData,
+  buildBreadcrumb(crumbs, `${pageUrl}#breadcrumb`),
+  buildWebPage({ name: heading, description, url: pageUrl }),
+];
+---
+<BaseLayout title={title} description={description} structuredData={schema}>
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-ocean-950/92 text-white backdrop-blur-xl">
+    <div class="container-site flex flex-wrap items-center justify-between gap-3 py-3">
+      <a href="/" class="flex items-center gap-3">
+        <span class="grid size-9 place-items-center rounded-full border border-white/20 bg-white/10"><Icon name="waves" class="size-4" /></span>
+        <span class="text-sm font-semibold tracking-[0.12em]">{BRAND_NAME}</span>
+      </a>
+      <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/70" aria-label="主題頁導覽">
+        {PAGES.map((page) => (
+          <a
+            href={page.path}
+            aria-current={page.path === current ? 'page' : undefined}
+            class:list={['transition hover:text-white', page.path === current ? 'font-semibold text-dawn-300' : '']}
+          >
+            {page.short}
+          </a>
+        ))}
+        <a href="/" class="transition hover:text-white">總覽</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <nav class="border-b border-ocean-100 bg-white" aria-label="麵包屑">
+      <ol class="container-site flex flex-wrap items-center gap-2 py-3 text-xs text-ocean-700/70">
+        {crumbs.map((crumb, index) => (
+          <li class="flex items-center gap-2">
+            {index > 0 && <span aria-hidden="true" class="text-ocean-300">/</span>}
+            {index === crumbs.length - 1 ? (
+              <span class="font-semibold text-ocean-900" aria-current="page">{crumb.name}</span>
+            ) : (
+              <a href={crumb.url} class="hover:text-ocean-950 hover:underline">{crumb.name}</a>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    <section class="bg-ocean-950 py-14 text-white sm:py-16">
+      <div class="container-site">
+        <p class="section-kicker text-xs font-semibold text-dawn-300">{kicker}</p>
+        <h1 class="mt-4 max-w-3xl text-balance text-4xl font-semibold leading-[1.15] tracking-[-0.03em] sm:text-5xl">{heading}</h1>
+        <p class="mt-5 max-w-2xl leading-8 text-white/70">{intro}</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href={ATTRACTION.navigationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-full bg-dawn-500 px-5 py-3 font-semibold text-white transition hover:bg-dawn-600"
+          >
+            <Icon name="map" class="size-4" />
+            導航至南方澳觀景台
+          </a>
+          <a
+            href="/"
+            class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-5 py-3 font-semibold text-white backdrop-blur transition hover:bg-white/16"
+          >
+            <Icon name="waves" class="size-4" />
+            回到觀景台總覽
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <slot />
+
+    <Explore current={current} />
+  </main>
+
+  <Footer />
+</BaseLayout>

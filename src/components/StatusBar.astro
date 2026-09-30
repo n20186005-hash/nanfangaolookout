@@ -1,0 +1,41 @@
+---
+import Icon from './Icon.astro';
+import { ATTRACTION } from '../data/site';
+---
+<section aria-label="開放狀態與門票" class="border-b border-ocean-100 bg-ocean-50 py-5">
+  <div class="container-site flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
+    <span class="inline-flex items-center gap-2 rounded-full border border-ocean-200 bg-white px-3.5 py-2 font-semibold text-ocean-950">
+      <span class="size-2 rounded-full bg-ocean-500 shadow-[0_0_0_4px_rgba(55,137,142,0.16)]"></span>
+      開放式平台・免門票
+    </span>
+    <span class="inline-flex items-center gap-2 text-ocean-800/70">
+      <Icon name="clock" class="size-4 text-ocean-600" />
+      可全時段前往（遇天候或路況管制請以現場公告為準）
+    </span>
+    <a
+      href={ATTRACTION.mapsUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-2 font-semibold text-ocean-950 transition hover:bg-dawn-50"
+    >
+      <span class="text-dawn-600">★</span>
+      Google {ATTRACTION.ratingValue}／{ATTRACTION.ratingCount.toLocaleString('en-US')} 則評價
+      <Icon name="external" class="size-3.5 opacity-60" />
+    </a>
+    <div class="ml-auto flex flex-wrap items-center gap-3">
+      <a href="/status/" class="inline-flex items-center gap-1.5 font-semibold text-ocean-800 underline decoration-ocean-300 underline-offset-4 hover:text-dawn-700">
+        開放與門票詳情
+        <Icon name="arrow" class="size-4" />
+      </a>
+      <a
+        href={ATTRACTION.navigationUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-full bg-ocean-950 px-4 py-2.5 font-semibold text-white transition hover:bg-ocean-800"
+      >
+        <Icon name="map" class="size-4" />
+        一鍵導航
+      </a>
+    </div>
+  </div>
+</section>

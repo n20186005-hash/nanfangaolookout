@@ -1,7 +1,8 @@
 ---
 import Icon from './Icon.astro';
+import { ATTRACTION } from '../data/site';
 
-const navigationUrl = 'https://www.google.com/maps/dir/?api=1&destination=24.5765079%2C121.8667597&destination_place_id=ChIJMYba8knOZzQRGUjgaehywyq';
+const navigationUrl = ATTRACTION.navigationUrl;
 ---
 <section id="transport" class="py-20 sm:py-28">
   <div class="container-site">
@@ -96,7 +97,7 @@ const navigationUrl = 'https://www.google.com/maps/dir/?api=1&destination=24.576
             導航至南方澳觀景台
             <Icon name="external" class="size-4 opacity-60" />
           </a>
-          <p class="mt-3 text-center text-xs text-ocean-700/55">座標：24.5765079, 121.8667597</p>
+          <p class="mt-3 text-center text-xs text-ocean-700/55">座標：{ATTRACTION.coordinateText}・Plus Code {ATTRACTION.plusCode}</p>
         </div>
       </div>
     </div>
@@ -106,7 +107,9 @@ const navigationUrl = 'https://www.google.com/maps/dir/?api=1&destination=24.576
         <div>
           <p class="text-sm font-semibold text-dawn-700">地圖位置</p>
           <h3 class="mt-2 text-2xl font-semibold text-ocean-950">南方澳觀景台</h3>
-          <p class="mt-2 text-sm leading-6 text-ocean-800/65">宜蘭縣蘇澳鎮台9丁線舊蘇花公路，約 5.5 公里處。</p>
+          <p class="mt-2 text-sm leading-6 text-ocean-800/65">
+            {ATTRACTION.addressFull}（{ATTRACTION.streetAddress}）。電話：{ATTRACTION.telephoneDisplay}。
+          </p>
         </div>
         <a href={navigationUrl} target="_blank" rel="noopener noreferrer" class="inline-flex shrink-0 items-center gap-2 font-semibold text-ocean-800 transition hover:text-dawn-700">
           使用目前位置導航
@@ -115,7 +118,7 @@ const navigationUrl = 'https://www.google.com/maps/dir/?api=1&destination=24.576
       </div>
       <div class="aspect-[4/3] w-full sm:aspect-[16/9]">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3628.367567257208!2d121.8667597!3d24.576507900000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3467e849f2da8631%3A0x2ac372e869e04819!2z5Y2X5pa55r6z6KeA5pmv6Ie6!5e0!3m2!1szh-TW!2stw!4v1785384409720!5m2!1szh-TW!2stw"
+          src={ATTRACTION.embedUrl}
           title="南方澳觀景台 Google 地圖"
           width="600"
           height="450"
