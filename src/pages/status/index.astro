@@ -68,6 +68,36 @@ const crumbs = [
     </div>
   </section>
 
+  <section class="bg-dawn-50 py-16 sm:py-20">
+    <div class="container-site">
+      <div class="reveal mx-auto max-w-3xl rounded-[1.7rem] border border-dawn-200 bg-white p-8 shadow-[0_18px_44px_rgba(249,156,61,0.12)] sm:p-10">
+        <div class="flex items-center gap-3">
+          <span class="grid size-12 place-items-center rounded-full bg-dawn-500 text-white"><Icon name="clock" class="size-6" /></span>
+          <p class="section-kicker text-xs font-semibold text-dawn-600">官方資訊核對</p>
+        </div>
+        <h2 class="mt-5 text-balance text-2xl font-semibold tracking-[-0.02em] text-ocean-950 sm:text-3xl">南方澳觀景台目前開放嗎？</h2>
+        <p class="mt-4 leading-8 text-ocean-800/80">
+          依官方公開旅遊資訊，南方澳觀景台為<strong>全天開放、免費參觀</strong>的景點。若遇颱風、豪雨、道路管制或臨時維護，請以主管機關最新公告及現場資訊為準。本站的開放說明僅供行程參考，不構成即時監控結果。
+        </p>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <span class="text-xs font-semibold text-ocean-700/60">資料來源：</span>
+          {ATTRACTION.officialSources.map((source) => (
+            <a
+              href={source.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 rounded-full border border-ocean-200 bg-ocean-50 px-3.5 py-2 text-sm font-semibold text-ocean-800 transition hover:border-dawn-400 hover:text-dawn-700"
+            >
+              {source.name}
+              <Icon name="external" class="size-3.5 opacity-60" />
+            </a>
+          ))}
+          <span class="ml-auto text-xs text-ocean-700/55">最後查核：{ATTRACTION.lastChecked}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="bg-ocean-50 py-16 sm:py-20">
     <div class="container-site grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
       <div class="reveal">

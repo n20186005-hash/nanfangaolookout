@@ -1,0 +1,148 @@
+---
+import SubpageLayout from '../../layouts/SubpageLayout.astro';
+import FAQ from '../../components/FAQ.astro';
+import Icon from '../../components/Icon.astro';
+import { suaoFaqs } from '../../data/faqs';
+import { SITE_URL, withSiteName } from '../../data/site';
+import { buildFaq } from '../../lib/schema';
+
+const title = withSiteName('蘇澳景點｜冷泉、白米木屐村、漁港與南方澳順遊');
+const description =
+  '蘇澳景點與一日遊攻略：蘇澳冷泉、白米木屐村、南方澳漁港、南天宮與豆腐岬，整理免費與收費景點、適合族群與半天到一日路線，並串連南方澳觀景台。';
+
+const spots = [
+  { icon: 'waves', name: '蘇澳冷泉', distance: '蘇澳市區', text: '罕見的碳酸冷泉，水溫低且帶氣泡感；屬收費設施，開放與票價請以現場公告為準。', paid: true },
+  { icon: 'info', name: '白米木屐村', distance: '蘇澳市區', text: '以木屐工藝與彩繪木屐聞名的社區，村落可免費散步，體驗活動另依現場安排。', paid: false },
+  { icon: 'ship', name: '南方澳漁港', distance: '南方澳海岸', text: '跨港大橋、漁船作業與海鮮採買的核心，是理解南方澳漁港規模最好的位置。', paid: false },
+  { icon: 'heart', name: '南天宮', distance: '南方澳市區', text: '漁港媽祖信仰中心，也是雨天最穩定的室內備案之一。', paid: false },
+  { icon: 'mountain', name: '豆腐岬與內埤海灣', distance: '緊鄰南方澳', text: '礁岩岬角與弧形海岸，可補充不同角度的海岸畫面，免費散步。', paid: false },
+] as const;
+
+const plans = [
+  {
+    label: '安排半日',
+    duration: '約 4 小時',
+    stops: ['南方澳觀景台 30 分鐘', '蘇澳冷泉泡湯與休息 90 分鐘', '白米木屐村散步 40 分鐘', '南方澳漁港與南天宮用餐 80 分鐘'],
+  },
+  {
+    label: '完整一日',
+    duration: '約 7–8 小時',
+    stops: ['清晨或傍晚的觀景台 60 分鐘', '蘇澳冷泉 90 分鐘', '白米木屐村 50 分鐘', '南方澳漁港、豆腐岬與南天宮 150 分鐘', '港區海鮮用餐 90 分鐘'],
+  },
+] as const;
+
+const crumbs = [
+  { name: '首頁', url: SITE_URL },
+  { name: '蘇澳景點順遊', url: `${SITE_URL}suao-attractions/` },
+];
+---
+
+<SubpageLayout
+  title={title}
+  description={description}
+  kicker="蘇澳・南方澳・一日遊"
+  heading="蘇澳景點順遊：冷泉、木屐村與漁港海岸"
+  intro="蘇澳市區與南方澳海岸相距不遠，把冷泉、木屐村、漁港與觀景台排在同一天，就能讀懂宜蘭這段山海交會。"
+  current="/suao-attractions/"
+  crumbs={crumbs}
+  structuredData={[buildFaq(suaoFaqs)]}
+>
+  <section class="py-16 sm:py-20">
+    <div class="container-site">
+      <div class="reveal max-w-3xl">
+        <p class="section-kicker text-xs font-semibold text-dawn-600">蘇澳景點一覽</p>
+        <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-4xl">先記住：蘇澳市區 + 南方澳海岸，一起排。</h2>
+        <p class="mt-5 leading-8 text-ocean-800/72">蘇澳是內陸市區與交通節點（火車站、冷泉、木屐村），南方澳則是緊鄰的漁港與海岸；兩者常合稱「蘇澳景點」一次玩。</p>
+      </div>
+
+      <div class="reveal mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {spots.map((spot) => (
+          <article class="flex h-full flex-col rounded-[1.7rem] border border-ocean-100 bg-white p-6">
+            <span class="grid size-11 place-items-center rounded-full bg-ocean-50 text-ocean-700"><Icon name={spot.icon} class="size-5" /></span>
+            <h3 class="mt-5 text-xl font-semibold text-ocean-950">{spot.name}</h3>
+            <p class="mt-1 text-xs font-medium text-dawn-700">{spot.distance}</p>
+            <p class="mt-3 flex-1 text-sm leading-7 text-ocean-800/70">{spot.text}</p>
+            <span class:list={['mt-4 inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold', spot.paid ? 'bg-dawn-50 text-dawn-700' : 'bg-ocean-50 text-ocean-700']}>
+              {spot.paid ? '收費設施' : '免費參觀'}
+            </span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ocean-50 py-16 sm:py-20">
+    <div class="container-site grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+      <div class="reveal">
+        <p class="section-kicker text-xs font-semibold text-dawn-600">免費優先</p>
+        <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-4xl">預算有限，也能玩得完整。</h2>
+        <p class="mt-5 leading-8 text-ocean-800/72">
+          南方澳漁港、南天宮、豆腐岬與內埤海灣都是免費散步點，觀景台本身也不收費。把收費的冷泉當成可選亮點，就能依天候與荷包彈性調整。
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/nearby/" class="inline-flex items-center gap-2 rounded-full bg-ocean-950 px-5 py-3 font-semibold text-white transition hover:bg-ocean-800">
+            <Icon name="route" class="size-4" />
+            看南方澳景點地圖
+          </a>
+          <a href="/parking/" class="inline-flex items-center gap-2 rounded-full border border-ocean-200 bg-white px-5 py-3 font-semibold text-ocean-800 transition hover:border-ocean-400">
+            <Icon name="parking" class="size-4" />
+            停車與交通
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal grid gap-4 sm:grid-cols-2">
+        <article class="rounded-[1.7rem] border border-ocean-100 bg-white p-6">
+          <h3 class="text-lg font-semibold text-ocean-950">免費景點</h3>
+          <ul class="mt-4 space-y-3 text-sm leading-7 text-ocean-800/70">
+            <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-ocean-500"></span><span>南方澳觀景台（免門票、免停車費）</span></li>
+            <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-ocean-500"></span><span>南方澳漁港與跨港大橋</span></li>
+            <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-ocean-500"></span><span>南天宮參拜與市區散步</span></li>
+            <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-ocean-500"></span><span>豆腐岬、內埤海灣海岸視野</span></li>
+          </ul>
+        </article>
+        <article class="rounded-[1.7rem] border border-ocean-100 bg-white p-6">
+          <h3 class="text-lg font-semibold text-ocean-950">收費設施</h3>
+          <ul class="mt-4 space-y-3 text-sm leading-7 text-ocean-800/70">
+            <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-dawn-500"></span><span>蘇澳冷泉（開放與票價請以現場公告為準）</span></li>
+            <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-dawn-500"></span><span>木屐村體驗或展示活動</span></li>
+            <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-dawn-500"></span><span>漁港海鮮用餐依當日漁獲計價</span></li>
+          </ul>
+          <p class="mt-5 rounded-2xl bg-ocean-50 p-4 text-xs leading-6 text-ocean-800/70">收費項目的開放時間與價格會隨季節調整，出發前請以官方或現場公告為準。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-20">
+    <div class="container-site">
+      <div class="reveal max-w-3xl">
+        <p class="section-kicker text-xs font-semibold text-dawn-600">行程組合</p>
+        <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-4xl">半天或一日，都能把蘇澳排進來。</h2>
+      </div>
+
+      <div class="reveal mt-10 grid gap-4 lg:grid-cols-2">
+        {plans.map((plan) => (
+          <article class="flex h-full flex-col rounded-[1.7rem] border border-ocean-100 bg-white p-6">
+            <p class="text-sm font-semibold text-dawn-700">{plan.duration}</p>
+            <h3 class="mt-2 text-xl font-semibold text-ocean-950">{plan.label}</h3>
+            <ol class="mt-5 space-y-3 text-sm leading-7 text-ocean-800/70">
+              {plan.stops.map((stop) => (
+                <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-dawn-500"></span><span>{stop}</span></li>
+              ))}
+            </ol>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FAQ
+    items={suaoFaqs}
+    kicker="蘇澳景點 FAQ"
+    title="關於蘇澳景點，最常被問的六件事。"
+    description="哪些免費、冷泉收不收費、一天怎麼排，這裡一次回答。"
+    linkHref="/status/"
+    linkLabel="查看觀景台開放狀態"
+  />
+</SubpageLayout>

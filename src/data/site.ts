@@ -32,10 +32,16 @@ export const ATTRACTION = {
   telephoneDisplay: '03-9953885',
   elevation: '約 140 公尺',
   ratingValue: 4.5,
-  ratingCount: 9019,
+  ratingCount: 9044,
   ratingSource: 'Google 地圖',
-  ratingChecked: '2026 年 9 月',
-  lastChecked: '2026-09-30',
+  ratingChecked: '2026 年 10 月',
+  lastChecked: '2026-10-13',
+
+  /** 官方資訊來源：僅作核對引用，不保證未來即時狀態 */
+  officialSources: [
+    { name: '宜蘭縣旅遊網', url: 'https://travel.yilan.gov.tw/' },
+    { name: '東北角及宜蘭海岸國家風景區', url: 'https://www.necoast-nsa.gov.tw/' },
+  ] as const,
   mapsUrl: 'https://maps.app.goo.gl/jhsX491V3Sp5r4pN7',
   navigationUrl:
     'https://www.google.com/maps/dir/?api=1&destination=24.5765079%2C121.8667597&destination_place_id=ChIJMYba8knOZzQRGUjgaehywyq',
@@ -54,4 +60,5 @@ export const PAGES = [
   { path: '/parking/', label: '停車與交通', short: '停車交通' },
   { path: '/night-view/', label: '夜景與日出', short: '夜景日出' },
   { path: '/nearby/', label: '周邊順遊與美食', short: '周邊順遊' },
+  { path: '/suao-attractions/', label: '蘇澳景點順遊', short: '蘇澳景點' },
 ] as const;
