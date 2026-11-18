@@ -1,0 +1,21 @@
+---
+import { nearbyAttractions } from '../data/nearbyAttractions';
+---
+<section id="nearby-attractions" class="border-t border-ocean-100 bg-white py-16 sm:py-20">
+  <div class="container-site">
+    <div class="reveal max-w-3xl">
+      <p class="section-kicker text-xs font-semibold text-dawn-600">南方澳周邊探索</p>
+      <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-4xl">看完觀景台，再走進海灣與漁港。</h2>
+      <p class="mt-4 leading-8 text-ocean-800/70">從自然海岸到媽祖信仰，各景點都有獨立介紹、實景照片、路線與專屬地圖入口。</p>
+    </div>
+    <div class="reveal mt-10 grid gap-5 md:grid-cols-3">
+      {nearbyAttractions.map((spot) => (
+        <a href={`/nearby/${spot.slug}/`} class="group overflow-hidden rounded-[1.7rem] border border-ocean-100 bg-ocean-50 transition hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(16,39,44,0.09)]">
+          <img src={spot.photo} alt={spot.photoAlt} loading="lazy" width="960" height="640" class="aspect-[3/2] w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
+          <div class="p-6"><h3 class="text-xl font-semibold text-ocean-950">{spot.name}</h3><p class="mt-2 text-sm leading-7 text-ocean-800/70">{spot.subtitle}</p><span class="mt-5 inline-flex font-semibold text-ocean-800 group-hover:text-dawn-700">閱讀景點指南 →</span></div>
+        </a>
+      ))}
+    </div>
+    <a href="/nearby/" class="mt-8 inline-flex items-center rounded-full border border-ocean-200 px-5 py-3 text-sm font-semibold text-ocean-900 transition hover:bg-ocean-50">查看完整周邊順遊路線 →</a>
+  </div>
+</section>

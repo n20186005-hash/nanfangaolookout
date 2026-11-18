@@ -35,7 +35,7 @@ export const ATTRACTION = {
   ratingCount: 9044,
   ratingSource: 'Google 地圖',
   ratingChecked: '2026 年 10 月',
-  lastChecked: '2026-10-13',
+  lastChecked: '2026-11-18',
 
   /** 官方資訊來源：僅作核對引用，不保證未來即時狀態 */
   officialSources: [

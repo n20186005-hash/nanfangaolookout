@@ -11,11 +11,12 @@ const description =
   '南方澳景點順遊懶人包：以觀景台為起點，串連內埤海灣、豆腐岬、南方澳大橋、南天宮與蘇澳冷泉，搭配漁港海鮮、米糕與魚丸美食，並提供 1 小時、半日與一日行程建議。';
 
 const spots = [
-  { icon: 'waves', name: '內埤海灣（情人灣）', distance: '下山約 5 分鐘車程', text: '弧形海岸與山岬，是最接近觀景台視角的海邊散步點。' },
-  { icon: 'mountain', name: '豆腐岬', distance: '緊鄰內埤海灣', text: '礁岩與岬角地形，可補充不同角度的海岸畫面。' },
-  { icon: 'ship', name: '南方澳大橋', distance: '港區內', text: '跨港景觀與漁船作業，是理解南方澳漁港規模的關鍵位置。' },
-  { icon: 'heart', name: '南天宮', distance: '南方澳市區', text: '漁港媽祖信仰中心，也是下雨天最穩定的室內備案之一。' },
-  { icon: 'info', name: '蘇澳冷泉', distance: '蘇澳市區', text: '夏天可與觀景台、漁港串成一日路線；開放與收費請以現場公告為準。' },
+  { icon: 'waves', name: '內埤海灣（情人灣）', distance: '下山後可順遊', text: '弧形海岸與山岬，是最接近觀景台視角的海邊散步點。', href: '/nearby/neipi-beach/' },
+  { icon: 'mountain', name: '豆腐岬', distance: '南方澳海岸', text: '礁岩與沙頸岬地形，可補充不同角度的海岸畫面。', href: '/nearby/tofu-cape/' },
+  { icon: 'ship', name: '南方澳大橋', distance: '港區內', text: '跨港景觀與漁船作業，是理解南方澳漁港規模的關鍵位置。', href: '/nearby/nanfangao-bridge/' },
+  { icon: 'heart', name: '南天宮', distance: '南方澳市區', text: '漁港媽祖信仰中心，也是下雨天可考慮的文化行程。', href: '/nearby/nantian-temple/' },
+  { icon: 'info', name: '蘇澳冷泉公園', distance: '蘇澳市區', text: '夏天可與觀景台、漁港串成一日路線；開放與收費請以現場公告為準。', href: '/nearby/suao-cold-spring/' },
+  { icon: 'ship', name: '南方澳漁港', distance: '港邊街區', text: '漁船、港灣街市與在地討海文化的生活現場。', href: '/nearby/nanfangao-harbor/' },
 ] as const;
 
 const foodTypes = [
@@ -63,7 +64,7 @@ const crumbs = [
     <div class="container-site">
       <div class="reveal max-w-3xl">
         <p class="section-kicker text-xs font-semibold text-dawn-600">周邊景點</p>
-        <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-4xl">下山後，可以先去這五個地方。</h2>
+        <h2 class="mt-4 text-balance text-3xl font-semibold tracking-[-0.03em] text-ocean-950 sm:text-4xl">下山後，走訪這六個地方。</h2>
         <p class="mt-5 leading-8 text-ocean-800/72">距離與車程會受路況影響，僅供安排順序參考。</p>
       </div>
 
@@ -74,6 +75,7 @@ const crumbs = [
             <h3 class="mt-5 text-xl font-semibold text-ocean-950">{spot.name}</h3>
             <p class="mt-1 text-xs font-medium text-dawn-700">{spot.distance}</p>
             <p class="mt-3 text-sm leading-7 text-ocean-800/70">{spot.text}</p>
+            {'href' in spot && <a href={spot.href} class="mt-4 inline-flex font-semibold text-ocean-800 underline decoration-ocean-300 underline-offset-4 hover:text-dawn-700">閱讀景點完整指南 →</a>}
           </article>
         ))}
       </div>

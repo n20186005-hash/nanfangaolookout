@@ -10,15 +10,16 @@ import Transport from '../components/Transport.astro';
 import ItineraryPlanner from '../components/ItineraryPlanner.astro';
 import Gallery from '../components/Gallery.astro';
 import Explore from '../components/Explore.astro';
+import NearbySpotlights from '../components/NearbySpotlights.astro';
 import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
 import MobileActions from '../components/MobileActions.astro';
 import { faqs } from '../data/faqs';
 import { buildAttraction, buildFaq, buildWebSite } from '../lib/schema';
 
-const title = '南方澳觀景台｜開放時間、免費停車、交通與日出夜景攻略';
+const title = '南方澳觀景台2026｜最新開放狀態、免費停車、日出夜景與周邊景點';
 const description =
-  '南方澳觀景台位於宜蘭蘇澳舊蘇花公路，免費參觀。整理開放時間、停車位置、Google 地圖導航、日出夜景拍攝建議，以及南方澳漁港、豆腐岬與內埤海灘順遊攻略。';
+  '南方澳觀景台已於2026年10月25日恢復開放。查台9丁線位置、免費停車與最新道路公告，規劃日出夜景、內埤海灣、豆腐岬及南天宮順遊。';
 
 const structuredData = [buildAttraction(), buildFaq(faqs), buildWebSite()];
 ---
@@ -34,6 +35,7 @@ const structuredData = [buildAttraction(), buildFaq(faqs), buildWebSite()];
     <ItineraryPlanner />
     <Gallery />
     <Explore />
+    <NearbySpotlights />
     <FAQ />
   </main>
   <Footer />

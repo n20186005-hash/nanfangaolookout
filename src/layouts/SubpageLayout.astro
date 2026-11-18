@@ -15,9 +15,12 @@ interface Props {
   current: string;
   crumbs: CrumbItem[];
   structuredData?: Record<string, unknown>[];
+  mapUrl?: string;
+  mapLabel?: string;
+  heroFacts?: string[];
 }
 
-const { title, description, kicker, heading, intro, current, crumbs, structuredData = [] } = Astro.props;
+const { title, description, kicker, heading, intro, current, crumbs, structuredData = [], mapUrl = ATTRACTION.navigationUrl, mapLabel = '導航至南方澳觀景台', heroFacts = [] } = Astro.props;
 
 const pageUrl = crumbs[crumbs.length - 1].url;
 const schema: Record<string, unknown>[] = [
@@ -69,15 +72,16 @@ const schema: Record<string, unknown>[] = [
         <p class="section-kicker text-xs font-semibold text-dawn-300">{kicker}</p>
         <h1 class="mt-4 max-w-3xl text-balance text-4xl font-semibold leading-[1.15] tracking-[-0.03em] sm:text-5xl">{heading}</h1>
         <p class="mt-5 max-w-2xl leading-8 text-white/70">{intro}</p>
+        {heroFacts.length > 0 && <div class="mt-5 flex flex-wrap gap-2">{heroFacts.map((fact) => <span class="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white/85">{fact}</span>)}</div>}
         <div class="mt-8 flex flex-wrap gap-3">
           <a
-            href={ATTRACTION.navigationUrl}
+            href={mapUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 rounded-full bg-dawn-500 px-5 py-3 font-semibold text-white transition hover:bg-dawn-600"
           >
             <Icon name="map" class="size-4" />
-            導航至南方澳觀景台
+            {mapLabel}
           </a>
           <a
             href="/"
