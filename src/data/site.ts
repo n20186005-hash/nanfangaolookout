@@ -32,7 +32,7 @@ export const ATTRACTION = {
   telephoneDisplay: '03-9953885',
   elevation: '約 140 公尺',
   ratingValue: 4.5,
-  ratingCount: 9044,
+  ratingCount: 9101,
   ratingSource: 'Google 地圖',
   ratingChecked: '2026 年 10 月',
   lastChecked: '2026-11-18',
