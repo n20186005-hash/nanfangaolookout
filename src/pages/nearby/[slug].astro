@@ -7,7 +7,8 @@ export function getStaticPaths() {
   return nearbyAttractions.map((spot) => ({ params: { slug: spot.slug }, props: { spot } }));
 }
 const { spot } = Astro.props;
-const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${spot.name} ${spot.area}`)}`;
+const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.mapQuery)}`;
+const navigationUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(spot.mapQuery)}`;
 const details: Record<string, { hours: string; price: string; access: string; photo: string; stay: string; rating: string }> = {
   'neipi-beach': { hours: '公共海岸無固定營業櫃台；遇天候與海岸管制依公告', price: '岸上公共賞景無一般入場門票；周邊服務另計', access: '自駕由南方澳港區沿學府路方向前往；大眾運輸先抵蘇澳，再查往南方澳班次及步行距離', photo: '從步道側拍弧形灣線；在安全高處納入後方山坡；近距離記錄礫石紋理', stay: '早晨拍海灣可考慮南方澳或蘇澳鎮區住宿，先確認隔日交通與停車安排', rating: 'Google 地圖依「內埤海灣」景點頁查看最新用戶評價' },
   'tofu-cape': { hours: '戶外遊憩區依當日公告及開放區域；官方提醒避免深夜進入', price: '海岸公共賞景與付費水域活動分開；活動費用向業者核對', access: '自駕導航豆腐岬遊憩區；大眾運輸查詢國光客運綠28等當日路線與「豆腐岬風景區」站', photo: '從安全的海岸步道拍沙頸岬；用礁岩作前景；從堤岸公共區域看港口與海平線', stay: '可住蘇澳鎮區，清晨抵達賞日出；不建議在無管理人員的區域夜間停留', rating: 'Google 地圖依「豆腐岬風景區」景點頁查看最新用戶評價' },
@@ -17,16 +18,32 @@ const details: Record<string, { hours: string; price: string; access: string; ph
   'suao-cold-spring': { hours: '園區設施有季節與營運時段差異；請查當日官方營運公告', price: '泡腳池、大眾池與個人湯屋可能分別計費，請依現場價目表', access: '位於蘇澳鎮冷泉路一帶；自駕按冷泉公園導航，搭臺鐵至蘇澳站後可查步行路線', photo: '入口的蘇澳冷泉紀念石；園區綠蔭與公共步道；拍攝池區時尊重其他使用者隱私', stay: '可住蘇澳站周邊，配合冷泉營運時間與隔日南方澳觀景行程', rating: 'Google 地圖依「蘇澳冷泉公園」景點頁查看最新用戶評價' },
 };
 const detail = details[spot.slug];
+const visitAdvice: Record<string, string> = {
+  'neipi-beach': '適合上午或傍晚在岸上欣賞海灣弧線，先從較高的步道觀察浪況，再慢慢往海岸方向移動。這裡直接面向外海，不宜把沙灘當作一般戲水海灘。',
+  'tofu-cape': '可在清晨觀察朝東的海面與礁岩光影；建議沿開放步道依序看沙頸岬、岩礁與防波堤。想參加水域活動，應事先向合格業者查詢當日條件。',
+  'nantian-temple': '從廟埕入口先看屋脊和匾額，再依現場動線參觀不同樓層媽祖神像；二樓玉媽祖與三樓金媽祖是理解廟宇工藝的重要重點。參拜時讓出香客動線。',
+  'nanfangao-bridge': '推薦先在觀景台辨識橋的位置與跨港方向，下山後從合法港邊空間觀察橋體。橋梁仍承擔交通功能，不在車道停留，拍照宜以遠景構圖。',
+  'nanfangao-harbor': '先選擇開放的港邊街道，觀察船隻停泊與漁業街區，再順遊南天宮。早晨與午後的作業情況可能差異很大，請為裝卸車輛與漁民保留通道。',
+  'suao-cold-spring': '可先走歷史廊道了解冷泉故事，從免費泡腳區感受水溫，再決定是否購票進入大眾池或湯屋。官方旅遊資訊列示 09:00–20:00，出發前仍需核對當日營運。',
+};
+const faq: Record<string, [string, string][]> = {
+  'neipi-beach': [['內埤海灣適合下水嗎？', '海灣面向外海，浪況變化快；以岸上賞景為主，不建議把這裡當作一般游泳沙灘。'], ['從觀景台怎麼安排？', '先俯瞰海灣位置，再循合法道路到學府路一帶，沿開放步道看弧形海岸。'], ['哪個角度適合拍照？', '從步道高處以整段灣線入鏡，能同時拍出礫石沙灘、山坡與浪線。']],
+  'tofu-cape': [['豆腐岬的地形有何特別？', '陸連島與連島沙洲形成沙頸岬，周邊還可觀察豆腐狀礁岩。'], ['適合看日出嗎？', '東向海灣有機會看到海上日出，但請先確認天氣與步道開放情況。'], ['可以直接走到礁岩上嗎？', '不建議攀越護欄或走入濕滑、受浪影響的礁岩區。']],
+  'nantian-temple': [['南天宮必看什麼？', '可留意傳統屋脊、木雕與匾額，以及不同樓層的玉媽祖、金媽祖。'], ['參拜需要門票嗎？', '一般參拜自由入內，供品與活動相關支出可自行選擇。'], ['廟內可以拍攝嗎？', '請依各殿堂標示與廟方規範，避免打擾祭儀與信眾。']],
+  'nanfangao-bridge': [['可以在橋上停車拍照嗎？', '不可以在橋面車道、橋肩或管制區停車拍照，應使用合法公共觀景空間。'], ['哪裡可以看完整橋線？', '南方澳觀景台較容易同時看到橋梁、港道和漁港聚落。'], ['橋梁開放狀況在哪裡看？', '實際通行以道路管理及現場交通管制公告為準。']],
+  'nanfangao-harbor': [['漁港可以自由參觀嗎？', '可在開放街區散步；卸貨、維修及管制碼頭不可擅入。'], ['何時較能看到漁港生活？', '晨間常有不同作業活動，但船隻出入取決於漁況與天氣，無固定保證。'], ['適合串聯哪些景點？', '可與南天宮、南方澳大橋及觀景台安排同一段港區行程。']],
+  'suao-cold-spring': [['冷泉水溫大約多少？', '宜蘭縣官方旅遊資料介紹冷泉長年約攝氏 22 度，泉水富含二氧化碳。'], ['泡腳和大眾池都要付費嗎？', '官方介紹泡腳體驗區免費，大眾池需購票；湯屋與當日費用以現場公告為準。'], ['從蘇澳車站怎麼走？', '冷泉公園位於冷泉路6-4號，距蘇澳車站步行數分鐘，可按專屬地圖連結規劃路線。']],
+};
 const crumbs = [
   { name: '首頁', url: SITE_URL },
   { name: '周邊景點', url: `${SITE_URL}nearby/` },
   { name: spot.name, url: `${SITE_URL}nearby/${spot.slug}/` },
 ];
 const facts = [
-  ['景點名稱', spot.name], ['景點類型', spot.character], ['所在區域', spot.area],
+  ['景點名稱', spot.name], ['景點類型', spot.character], ['地址／所在區域', spot.area],
   ['建議停留', spot.slug === 'suao-cold-spring' ? '約 1–2 小時（含冷泉體驗）' : spot.slug === 'nantian-temple' ? '約 45–90 分鐘，參拜與建築觀察可延長' : '約 30–60 分鐘，依天候及步行速度調整'],
   ['開放時間', detail.hours], ['門票價格', detail.price],
-  ['地圖定位', 'Google 地圖以景點專屬名稱及所在區域搜尋'],
+  ['地圖定位', `Google 地圖搜尋「${spot.mapQuery}」`],
 ];
 ---
 <SubpageLayout
@@ -43,7 +60,7 @@ const facts = [
 >
   <section class="py-16 sm:py-20"><div class="container-site grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-start">
     <div class="reveal"><p class="section-kicker text-dawn-600">探索景點</p><h2 class="mt-4 text-3xl font-semibold text-ocean-950">從觀景台延伸的一段海港旅行</h2><p class="mt-5 leading-8 text-ocean-800/75">{spot.intro}</p>
-      <h3 class="mt-9 text-xl font-semibold text-ocean-950">遊覽建議</h3><p class="mt-3 leading-8 text-ocean-800/75">建議先在觀景台認識南方澳整體地形，再到這處景點停留。山路與海岸步道的實際通行情形，出發前請查官方公告。</p>
+      <h3 class="mt-9 text-xl font-semibold text-ocean-950">遊覽建議</h3><p class="mt-3 leading-8 text-ocean-800/75">{visitAdvice[spot.slug]}</p>
       <h3 class="mt-7 text-xl font-semibold text-ocean-950">景區特色</h3><p class="mt-3 leading-8 text-ocean-800/75">{spot.character}</p>
     </div>
     {'photo' in spot ? <figure class="reveal overflow-hidden rounded-[1.8rem]"><img src={spot.photo} alt={spot.photoAlt} loading="lazy" width="1440" height="960" class="aspect-[4/3] w-full object-cover"/><figcaption class="bg-ocean-50 px-5 py-3 text-sm text-ocean-700">{spot.photoCaption}</figcaption></figure> : <aside class="reveal rounded-[1.8rem] bg-ocean-50 p-8"><p class="text-sm font-semibold text-dawn-700">現地辨認</p><p class="mt-4 text-lg leading-8 text-ocean-900">此景點的專屬照片仍待取得可確認地點的影像；請先透過官方景點介紹及地圖辨認入口，不以其他景點照片充當現場實景。</p><a href={spot.source} target="_blank" rel="noopener noreferrer" class="mt-5 inline-block font-semibold text-ocean-800 underline">查看官方景點資料 ↗</a></aside>}
@@ -64,6 +81,6 @@ const facts = [
     <div><p class="section-kicker text-dawn-600">順遊路線</p><h2 class="mt-4 text-3xl font-semibold text-ocean-950">由觀景台到現場</h2><ol class="mt-8 space-y-5">{spot.route.map((text,i)=><li class="rounded-2xl border border-ocean-100 bg-white p-5"><p class="text-xs font-semibold text-dawn-700">第 {i+1} 站</p><p class="mt-2 leading-8 text-ocean-900">{text}</p></li>)}</ol><div class="mt-6 rounded-2xl bg-dawn-50 p-6"><h3 class="font-semibold text-ocean-950">遊覽須知</h3><p class="mt-3 leading-8 text-ocean-800/75">{spot.tips}</p></div></div>
   </div></section>
   <section class="border-y border-ocean-100 bg-ocean-50 py-14"><div class="container-site grid gap-8 lg:grid-cols-2"><div><p class="section-kicker text-dawn-600">住宿建議</p><h2 class="mt-3 text-2xl font-semibold text-ocean-950">如何安排過夜？</h2><p class="mt-4 leading-8 text-ocean-800/75">{detail.stay}</p></div><div><p class="section-kicker text-dawn-600">遊客評價</p><h2 class="mt-3 text-2xl font-semibold text-ocean-950">看看最新旅人心得</h2><p class="mt-4 leading-8 text-ocean-800/75">{detail.rating}。評分與評論會變動，本頁不複製過期分數或個別評論。</p><a href={mapUrl} target="_blank" rel="noopener noreferrer" class="mt-4 inline-block font-semibold text-ocean-800 underline">查看 Google 地圖評價 ↗</a></div></div></section>
-  <section class="bg-ocean-950 py-16 text-white"><div class="container-site grid gap-8 lg:grid-cols-2"><div><p class="section-kicker text-dawn-300">交通指南</p><h2 class="mt-4 text-3xl font-semibold">{spot.name}怎麼去？</h2><p class="mt-5 leading-8 text-white/75">所在地：{spot.area}。自駕請依專屬景點導航確認合法停車處；搭乘大眾運輸可先抵達蘇澳，再查當日轉乘或計程車安排。景點入口不等於觀景台入口。</p><a href={mapUrl} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex rounded-full bg-dawn-500 px-6 py-3 font-semibold text-white hover:bg-dawn-600">在 Google 地圖搜尋此景點 ↗</a></div><div><h2 class="text-xl font-semibold">出發前常見問題</h2><h3 class="mt-5 font-semibold text-white/90">需要先買票嗎？</h3><p class="mt-2 leading-7 text-white/65">請查景點主管單位或現場公告；不將周邊付費體驗與公共空間混為一談。</p><h3 class="mt-5 font-semibold text-white/90">能和觀景台排在同一天嗎？</h3><p class="mt-2 leading-7 text-white/65">可以。建議先看全景再走訪景點，但山路、停車與海象會影響實際所需時間。</p><h3 class="mt-5 font-semibold text-white/90">附近住宿如何安排？</h3><p class="mt-2 leading-7 text-white/65">若要拍日出或夜景，可考慮蘇澳鎮區住宿，預訂前確認交通方式與出發時間。</p></div></div></section>
+  <section class="bg-ocean-950 py-16 text-white"><div class="container-site grid gap-8 lg:grid-cols-2"><div><p class="section-kicker text-dawn-300">交通指南</p><h2 class="mt-4 text-3xl font-semibold">{spot.name}怎麼去？</h2><p class="mt-5 leading-8 text-white/75">地址／所在區域：{spot.area}。{detail.access}。請依目的地專屬定位確認入口，不將南方澳觀景台座標套用至其他景點。</p><div class="mt-6 flex flex-wrap gap-3"><a href={mapUrl} target="_blank" rel="noopener noreferrer" class="inline-flex rounded-full bg-dawn-500 px-6 py-3 font-semibold text-white hover:bg-dawn-600">查看{spot.name}地圖 ↗</a><a href={navigationUrl} target="_blank" rel="noopener noreferrer" class="inline-flex rounded-full border border-white/30 px-6 py-3 font-semibold text-white hover:bg-white/10">導航至{spot.name} ↗</a></div></div><div><h2 class="text-xl font-semibold">出發前常見問題</h2>{faq[spot.slug].map(([question, answer]) => <div class="mt-5"><h3 class="font-semibold text-white/90">{question}</h3><p class="mt-2 leading-7 text-white/65">{answer}</p></div>)}</div></div></section>
   <section class="py-12"><div class="container-site"><h2 class="text-xl font-semibold text-ocean-950">資料來源與更新</h2><p class="mt-3 text-sm leading-7 text-ocean-700">公開資料核對：2026 年 11 月 18 日。動態開放及交通資訊以最新公告為準。</p><ul class="mt-3 space-y-2 text-sm text-ocean-800"><li><a class="underline" href={spot.source} target="_blank" rel="noopener noreferrer">官方景點介紹 ↗</a></li>{'source2' in spot && <li><a class="underline" href={spot.source2} target="_blank" rel="noopener noreferrer">另一官方參考資料 ↗</a></li>}</ul><p class="mt-4 text-sm text-ocean-700">旅客評價請在對應 Google 地圖景點頁查看；此頁未引用未經核對的評分與評價數。</p></div></section>
 </SubpageLayout>
